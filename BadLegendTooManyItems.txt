@@ -1,0 +1,11 @@
+K, Kitchen, Garden
+D, Dining Room
+V, Living Room
+B, Ballroom
+R, Library
+S, Study
+T, Bathroom
+Y, Lobby
+E, Bedroom
+X, Closet
+W, Walkway

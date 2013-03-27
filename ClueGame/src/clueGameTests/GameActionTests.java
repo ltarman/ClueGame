@@ -124,29 +124,35 @@ public class GameActionTests {
 	}
 	
 	
-/*
+
 	@Test
 	public void testVisited(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate
-		int location = board.calcIndex(10, 15);
-		ComputerPlayer player = new ComputerPlayer("comp", testDeck, location, "Blue");
-		player.setVisited('L');
-		board.startTargets(location,1);
-		int test10_16 = 0;
-		int test11_15 = 0;
-		int test10_14 = 0;
+		int index = board.calcIndex(9, 15);
+		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "W", "Blue");
+		player.setVisited('R');
+		board.calcAdjacencies();
+		board.calcTargets(index, 1);
+
+		int test8_15 = 0;
+		int test10_15 = 0;
+		int test9_14 = 0;
+		int test9_16 = 0;
+		
 		//have pickLocation choose a random location 100 times and record the number of times it picks a spot
 		for (int i=0;i<100;i++){
-			BoardCell chosen = player.pickLocation(board.getTargets(), board);
-			if (chosen == board.getCellAt(board.calcIndex(10,16)))	test10_16++;
-			else if (chosen == board.getCellAt(board.calcIndex(11,15)))	test11_15++;
-			else if (chosen == board.getCellAt(board.calcIndex(10,14)))	test10_14++;
+			int chosen = player.pickLocation(board.getTargets(),board);
+			if (chosen == board.calcIndex(8,15)) test8_15++;
+			else if (chosen == board.calcIndex(10,15))	test10_15++;
+			else if (chosen == board.calcIndex(9,14))	test9_14++;
+			else if (chosen == board.calcIndex(9,16))	test9_16++;
 		}
-		assertFalse(test10_16 == 0);
-		assertFalse(test11_15 == 0);
-		assertFalse(test10_14 == 0);
+		assertFalse(test8_15 == 0);
+		assertFalse(test10_15 == 0);
+		assertFalse(test9_14 == 0);
+		assertFalse(test9_16 == 0);
 	}
-	 */
+	 
 	
 	
 	

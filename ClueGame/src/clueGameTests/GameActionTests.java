@@ -76,36 +76,38 @@ public class GameActionTests {
 		assertTrue(testGame.makeAccusation(testAccusationList)); //Tests the actual accusation function.
 	}
 
-	/*
+	
 	@Test
 	public void testRandomTarget(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate
-		int location = board.calcIndex(12, 14);
+		String location = "W";
+		//int location = board.calcIndex(12, 14);		
 		ComputerPlayer player = new ComputerPlayer("comp", testDeck, location, "Blue");
-		int test14_14 = 0;
-		int test10_14 = 0;
-		int test13_15 = 0;
-		int test12_16 = 0;
+		int test11_14 = 0;
+		int test12_15 = 0;
+		int test13_14 = 0;
+		
 		//have pickLocation choose a random location 100 times and record the number of times it picks a spot
-		board.startTargets(location, 2);
+		int index = board.calcIndex(12, 14);
+		board.calcAdjacencies();
+		board.calcTargets(index, 1);
+		
 		for(int i=0; i<100; i++){
-			BoardCell chosen = player.pickLocation(board.getTargets(), board);
-			if(chosen == board.getCellAt(board.calcIndex(14, 14))) test14_14++;
-			else if (chosen == board.getCellAt(board.calcIndex(10,14)))	test10_14++;
-			else if (chosen == board.getCellAt(board.calcIndex(13,15)))	test13_15++;
-			else if (chosen == board.getCellAt(board.calcIndex(12,16)))	test12_16++;
+			int chosen = player.pickLocation(board.getTargets(),board);
+			if (chosen == board.calcIndex(11,14))	test11_14++;
+			else if (chosen == board.calcIndex(12,15))	test12_15++;
+			else if (chosen == board.calcIndex(13,14))	test13_14++;
 			//if the computer does not pick a designated spot, the test has failed
 			else fail("testRandomTarget failure");
 		}
 		//test to see if it picked each spot at least once as well as it picked 100 spots
-		assertEquals(100, test14_14 + test10_14, test13_15 + test12_16);
-		assertFalse(test14_14 == 0);
-		assertFalse(test10_14 == 0);
-		assertFalse(test13_15 == 0);
-		assertFalse(test12_16 == 0);
+		assertEquals(100, test11_14 + test12_15, test13_14);
+		assertFalse(test11_14 == 0);
+		assertFalse(test12_15 == 0);
+		assertFalse(test13_14 == 0);
 	}
 	
-
+/*
 	@Test
 	public void testRoomSelection(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate

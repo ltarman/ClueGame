@@ -12,7 +12,6 @@ import Board.BoardCell;
 public class ComputerPlayer extends Player{
 	
 	private char visited;
-	//private Random generator = new Random();
 
 	public ComputerPlayer(String playerName, ArrayList<Card> cards, String location, String color) {
 		super(playerName, cards, location, color);
@@ -21,13 +20,23 @@ public class ComputerPlayer extends Player{
 	
 	//This needs to be worked on. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-	public int pickLocation(Set<Integer> possibleTargets) {
+	public int pickLocation(Set<Integer> possibleTargets, Board board) {
 		//Selects a random cell from the calculated list of targets
-		Random randomGenerator = new Random();
-		Object [] arrayOfTargets;
-		arrayOfTargets = possibleTargets.toArray();
-
-		return 6;
+		int r = 0;
+		Random generator = new Random();
+		boolean room = false;
+		
+		for(int i=0;i<possibleTargets.size();i++){
+			if((board.getCellAt((Integer) possibleTargets.toArray()[i])).isRoom() && visited != board.getCellAt((Integer) possibleTargets.toArray()[i]).getInitial()){
+				room = true;
+				return (Integer) possibleTargets.toArray()[i];
+			}
+		}
+		
+		if(!room){
+			r = generator.nextInt(possibleTargets.size());
+			return (Integer) possibleTargets.toArray()[r];
+		}else return 0;
 	}
 
 	public char getVistited() {

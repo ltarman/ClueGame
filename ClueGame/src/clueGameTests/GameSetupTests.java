@@ -29,8 +29,11 @@ public class GameSetupTests {
 	}
 
 	@Test
-	public void testPeople(){
+	public void testPeople() throws FileNotFoundException{
+		ClueGame testGame = new ClueGame();
 		//get the list of players from the getter and get the three for testing
+		
+		
 		ArrayList<Player> players = new ArrayList<Player>(testGame.getPlayerList());
 		HumanPlayer human = (HumanPlayer) players.get(0);		//Assuming the human player is first in the list followed by the computer players
 		ComputerPlayer p1 = (ComputerPlayer) players.get(1);
@@ -39,42 +42,47 @@ public class GameSetupTests {
 		//Testing for the correct names
 		assertEquals(human.getName(), "Miss Scarlet");
 		assertEquals(p1.getName(), "Colonel Mustard");
-		assertEquals(p1.getName(), "Mr. Green");
+		assertEquals(p2.getName(), "Professor Plum");
 		
 		//Testing for the correct colors
+		
+		System.out.println(human.getColor());
+		
+		assertEquals("Red" , "Red");
+		
 		assertEquals(human.getColor(), "Red");
-		assertEquals(p1.getColor(), "Orange");
-		assertEquals(p1.getColor(), "Green");
+		assertEquals(p1.getColor(), "Yellow");
+		assertEquals(p2.getColor(), "Purple");
 
 // !! Change location to whatever type it is and assertion statement !!
 		//Testing for the correct starting location
-		assertEquals(human.getLocation(), "human start");
-		assertEquals(p1.getLocation(), "human start");
-		assertEquals(p2.getLocation(), "human start");
+		assertEquals(human.getLocation(), "humanStartLocation");
+		assertEquals(p1.getLocation(), "comp1StartLocation");
+		assertEquals(p2.getLocation(), "comp5StartLocation");
 	}
 	
 	@Test
-	public void TestCardLoading() { //Test the loading of cards
+	public void TestCardLoading() throws FileNotFoundException { //Test the loading of cards
 		ClueGame testGame = new ClueGame();
-		assertEquals(testGame.getCardList().size(), 21); //Test that the game has the correct number of cards
+		assertEquals(testGame.getFullCardList().size(), 21); //Test that the game has the correct number of cards
 
 		int weaponCardCount = 0;
 		int personCardCount = 0;
 		int roomCardCount = 0;
 		//Counts the number of each type of card. All three types has a condition (no 'else' statement) to ensure it is correctly set.
-		for(int i = 0; i < testGame.getCardList().size(); i++ ) {  
-			if(testGame.getCardList().get(i).getType() == Card.typeOfCard.WEAPON) {
+		for(int i = 0; i < testGame.getFullCardList().size(); i++ ) {  
+			if(testGame.getFullCardList().get(i).getType() == Card.typeOfCard.WEAPON) {
 				weaponCardCount++;
-			}  else if (testGame.getCardList().get(i).getType() == Card.typeOfCard.PERSON) {
+			}  else if (testGame.getFullCardList().get(i).getType() == Card.typeOfCard.PERSON) {
 				personCardCount++;
-			} else if(testGame.getCardList().get(i).getType() == Card.typeOfCard.ROOM) {
+			} else if(testGame.getFullCardList().get(i).getType() == Card.typeOfCard.ROOM) {
 				roomCardCount++;
 			}
 		}
 
 		assertEquals(weaponCardCount, 6); //Test the deck has the appropriate number of cards of each type
 		assertEquals(personCardCount, 6);
-		assertEquals(roomCardCount, 6);
+		assertEquals(roomCardCount, 9);
 		Boolean weaponCheck = false;
 		Boolean personCheck = false;
 		Boolean roomCheck = false;

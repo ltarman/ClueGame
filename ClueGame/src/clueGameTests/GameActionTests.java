@@ -76,7 +76,7 @@ public class GameActionTests {
 		assertTrue(testGame.makeAccusation(testAccusationList)); //Tests the actual accusation function.
 	}
 
-	/* Uncomment once pickLocation is done. &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+	/*
 	@Test
 	public void testRandomTarget(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate
@@ -140,7 +140,7 @@ public class GameActionTests {
 		assertFalse(test11_15 == 0);
 		assertFalse(test10_14 == 0);
 	}
-	*/
+	 */
 	
 	
 	

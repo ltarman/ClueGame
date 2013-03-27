@@ -1,5 +1,6 @@
 package Board;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -9,11 +10,13 @@ import java.util.Scanner;
 
 import Board.BadConfigFormatException;
 import Board.Player;
+import Board.BadConfigFormatException.errorType;
 
 
 public class ClueGame {
 	
-	private ArrayList<Card> clueGameDeck;
+	private ArrayList<Card> clueGameDeck; //Includes only the cards that are to be dealt to the players (doesn't include solution)
+	private ArrayList<Card> clueGameFullDeck; // Includes all cards, necessary for computer guesses
 	private ArrayList<Player> playerList;
 	private static ArrayList<Card> solution;
 
@@ -22,9 +25,15 @@ public class ClueGame {
 	private ArrayList<Card> seenRooms;
 	
 	
-	public ClueGame() {
+	public ClueGame() throws FileNotFoundException {
 		solution = new ArrayList<Card>();
+		playerList = new ArrayList<Player>();
+		clueGameDeck = new ArrayList<Card>();
+		clueGameFullDeck = new ArrayList<Card>();
+		
 		loadCardList();
+		loadPlayerList();
+		
 		seenWeapons = new ArrayList<Card>();
 		seenPeople = new ArrayList<Card>();
 		seenRooms = new ArrayList<Card>();
@@ -56,6 +65,10 @@ public class ClueGame {
 	public ArrayList<Card> getCardList() {
 		return this.clueGameDeck;
 	}
+	
+	public ArrayList<Card> getFullCardList() {
+		return this.clueGameFullDeck;
+	}
 
 	public ArrayList<Card> getSolution() {
 		return solution;
@@ -66,7 +79,7 @@ public class ClueGame {
 		solution.add(set);
 	}
 	
-	//Distributes the cards to the players.
+	//Distributes the cards to the players. Players will not have any cards when instantiated, and will receive them with this function.
 	public void dealCards() {
 		Random randomGenerator = new Random();
 		
@@ -175,14 +188,15 @@ public class ClueGame {
 		for(int i=0; i < 3; i++){
 			
 			
-			/*     Not sure on this; look later &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-			try{  
+			//     Not sure on this; look later &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+			//try{  
 				LinkedList<String> cards = new LinkedList<String>();
 				while(files[i].hasNextLine()){
 					line = files[i].nextLine();
 					cards.add(line);
 				}
 				stacks.add(cards);
+				/*
 			}catch(BadConfigFormatException e){
 				System.out.println("Bad file format for " + files[i]);
 			}
@@ -194,45 +208,78 @@ public class ClueGame {
 		LinkedList<String> weaponsList = stacks.get(1);		
 		LinkedList<String> roomsList = stacks.get(2);		
 		
+		
 		//this will pick out a random card from peopleList, weaponsList, and roomsList
 		Random generator = new Random();
 		
 		//chooses a random person from people list and places it into the solution.
-		//It will then remove that card from the list before it is placed in the deck
+		//It will then remove that card from the list before it is placed in the main deck, but it is placed in the full deck.
 		int r = generator.nextInt(peopleList.size());
 		solution.add(new Card(peopleList.get(r), Card.typeOfCard.PERSON));
+		clueGameFullDeck.add(new Card(peopleList.get(r),Card.typeOfCard.PERSON));
 		peopleList.remove(r);
 
 		//chooses a random weapon from weaponslist and places it into the solution
-		//It will then remove that card from the list before it is placed in the deck
+		//It will then remove that card from the list before it is placed in the main deck, but it is placed in the full deck
 		r = generator.nextInt(weaponsList.size());
 		solution.add(new Card(weaponsList.get(r), Card.typeOfCard.WEAPON));
+		clueGameFullDeck.add(new Card(weaponsList.get(r),Card.typeOfCard.WEAPON));
 		weaponsList.remove(r);
 
 		//chooses a random room from roomslist and places it into the solution
-		//It will then remove that card from the list before it is placed in the deck
+		//It will then remove that card from the list before it is placed in the main deck, but it is placed in the full deck
 		r = generator.nextInt(roomsList.size());
 		solution.add(new Card(roomsList.get(r), Card.typeOfCard.ROOM));
+		clueGameFullDeck.add(new Card(roomsList.get(r),Card.typeOfCard.ROOM));
 		roomsList.remove(r);
 		
 		//loads the people into the deck
 		for(int i=0; i<peopleList.size();i++){
-			Card temp = new Card(peopleList.get(i),Card.typeOfCard.PERSON);
-			clueGameDeck.add(temp);
+			Card tempCard = new Card(peopleList.get(i),Card.typeOfCard.PERSON);
+			clueGameDeck.add(tempCard);
+			clueGameFullDeck.add(tempCard);
 		}
 		
 		//loads the weapons into the deck
 		for(int i=0; i<weaponsList.size();i++){
-			Card temp = new Card(weaponsList.get(i),Card.typeOfCard.WEAPON);
-			clueGameDeck.add(temp);
+			Card tempCard = new Card(weaponsList.get(i),Card.typeOfCard.WEAPON);
+			clueGameDeck.add(tempCard);
+			clueGameFullDeck.add(tempCard);
 		}
 		
 		//loads the rooms into the deck
 		for(int i=0; i<roomsList.size();i++){
-			Card temp = new Card(roomsList.get(i),Card.typeOfCard.ROOM);
-			clueGameDeck.add(temp);
+			Card tempCard = new Card(roomsList.get(i),Card.typeOfCard.ROOM);
+			clueGameDeck.add(tempCard);
+			clueGameFullDeck.add(tempCard);
 		}
+	}
+	
+	//Should change this so we can alter the file it checks
+	private void loadPlayerList() throws FileNotFoundException{
+		ArrayList<String> playerNames = new ArrayList<String>();
+		ArrayList<String> initialPlayerLocations = new ArrayList<String>();
+		ArrayList<String> playerColors = new ArrayList<String>();
+		ArrayList<Card> emptyCardList = new ArrayList<Card>();
 		
+		int iteration = 0;
+		
+		File inFile = new File("PlayerInfo.txt");
+		Scanner scanner = new Scanner(inFile);
+		while(scanner.hasNextLine()){
+			String[] lineOfData = scanner.nextLine().split(",");	// Converts a row of data in the file to an array of strings
+			lineOfData[2] = lineOfData[2].trim();
+			playerNames.add(lineOfData[0]);
+			initialPlayerLocations.add(lineOfData[1]);
+			playerColors.add(lineOfData[2]);
+			
+			if(playerNames.size() == 1) { //If only one player's worth of info has been added, then use it to make a human player.
+				playerList.add(new HumanPlayer(playerNames.get(0),emptyCardList, initialPlayerLocations.get(0), playerColors.get(0)));
+			} else { //Otherwise, add a computer player
+				playerList.add(new ComputerPlayer(playerNames.get(iteration),emptyCardList, initialPlayerLocations.get(iteration), playerColors.get(iteration)));
+			}
+			iteration++;
+		}
 	}
 	
 	//used to find a file for the loadConfigFiles function

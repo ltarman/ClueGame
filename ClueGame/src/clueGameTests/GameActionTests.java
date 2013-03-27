@@ -79,16 +79,15 @@ public class GameActionTests {
 	
 	@Test
 	public void testRandomTarget(){
-		//calculate an index for a spot on the board and create a new computer player to manipulate
-		String location = "W";
-		//int location = board.calcIndex(12, 14);		
-		ComputerPlayer player = new ComputerPlayer("comp", testDeck, location, "Blue");
+		//calculate an index for a spot on the board and create a new computer player to manipulate	
+		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "W", "Blue");
 		int test11_14 = 0;
 		int test12_15 = 0;
 		int test13_14 = 0;
 		
 		//have pickLocation choose a random location 100 times and record the number of times it picks a spot
 		int index = board.calcIndex(12, 14);
+		//load the adj list into the board
 		board.calcAdjacencies();
 		board.calcTargets(index, 1);
 		
@@ -107,20 +106,25 @@ public class GameActionTests {
 		assertFalse(test13_14 == 0);
 	}
 	
-/*
+
 	@Test
 	public void testRoomSelection(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate
-		int location = board.calcIndex(10, 15);
-		ComputerPlayer player = new ComputerPlayer("comp", testDeck, location, "Blue");
-		//find the adjacency list for the location of the computer and record what is picked
-		board.startTargets(location, 1);
+		int index = board.calcIndex(9, 15);
+		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "W", "Blue");
+		
+		//load the adj list into the board
+		board.calcAdjacencies();
+		board.calcTargets(index, 1);
+
 		//It must run pickLocation to put the playing in a new location. 
 		//This variable is not used, however changes the location inside the player
-		BoardCell chosen = player.pickLocation(board.getTargets(), board);
-		assertTrue(player.getLocation() == board.calcIndex(10, 16));
+		int chosen = player.pickLocation(board.getTargets(), board);
+		assertTrue(chosen == board.calcIndex(9, 16));
 	}
-
+	
+	
+/*
 	@Test
 	public void testVisited(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate

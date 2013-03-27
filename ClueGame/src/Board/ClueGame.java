@@ -13,7 +13,7 @@ import Board.Player;
 
 public class ClueGame {
 	
-	private ArrayList<Card> cardList;
+	private ArrayList<Card> clueGameDeck;
 	private ArrayList<Player> playerList;
 	private static ArrayList<Card> solution;
 
@@ -32,7 +32,7 @@ public class ClueGame {
 	
 	public ClueGame(ArrayList<Player> playerListIn, ArrayList<Card> cardListIn) { //Used for testing
 		playerList = playerListIn;
-		cardList = cardListIn;
+		clueGameDeck = cardListIn;
 		seenWeapons = new ArrayList<Card>();
 		seenPeople = new ArrayList<Card>();
 		seenRooms = new ArrayList<Card>();
@@ -54,17 +54,41 @@ public class ClueGame {
 	}
 	
 	public ArrayList<Card> getCardList() {
-		return this.cardList;
+		return this.clueGameDeck;
 	}
 
 	public ArrayList<Card> getSolution() {
 		return solution;
 	}
 	
-	//used only for testing. Sets the Solution to a defined situation
+	//used only for testing. Places a card into the solution.
 	public void setSolution(Card set) {
 		solution.add(set);
 	}
+	
+	//Distributes the cards to the players.
+	public void dealCards() {
+		Random randomGenerator = new Random();
+		
+		ArrayList<Card> distributionDeck = clueGameDeck;
+		int playerCount = playerList.size();
+		int currentPlayer = 0;
+		Card randomCard ;
+		
+		while(distributionDeck.size() > 0) {
+			randomCard = distributionDeck.get(randomGenerator.nextInt(distributionDeck.size()));
+			playerList.get(currentPlayer).giveCard(randomCard);
+			distributionDeck.remove(randomCard);
+			
+			currentPlayer++;
+			if(currentPlayer == playerCount) {
+				currentPlayer = 0;
+			}
+		}
+	}
+	
+	
+	
 	
 	//Checks a suggestion by looking at most players' cards
 	public Card testSuggestion(Player tester, Card A, Card B, Card C) { 
@@ -101,8 +125,8 @@ public class ClueGame {
 		Random randomGenerator = new Random();
 		
 		
-		for(int i = 0; i < cardList.size(); i++) { //Iterates through the game's list of cards
-			Card checkedCard = cardList.get(i); 
+		for(int i = 0; i < clueGameDeck.size(); i++) { //Iterates through the game's list of cards
+			Card checkedCard = clueGameDeck.get(i); 
 			
 			if(checkedCard.getType() == Card.typeOfCard.WEAPON) { //Is it a weapon?
 				if(!seenWeapons.contains(checkedCard)) { //If the card is is the deck and is not in the list of seen weapons,
@@ -125,7 +149,7 @@ public class ClueGame {
 		return possibleSolution;
 	}
 	
-	private Boolean makeAccusation(ArrayList<Card> accuseSet) {
+	public Boolean makeAccusation(ArrayList<Card> accuseSet) {
 		Boolean goodSoFar = true;
 		for(int i = 0; i<accuseSet.size(); i++) {
 			if(!accuseSet.contains(solution.get(i))) {
@@ -194,19 +218,19 @@ public class ClueGame {
 		//loads the people into the deck
 		for(int i=0; i<peopleList.size();i++){
 			Card temp = new Card(peopleList.get(i),Card.typeOfCard.PERSON);
-			cardList.add(temp);
+			clueGameDeck.add(temp);
 		}
 		
 		//loads the weapons into the deck
 		for(int i=0; i<weaponsList.size();i++){
 			Card temp = new Card(weaponsList.get(i),Card.typeOfCard.WEAPON);
-			cardList.add(temp);
+			clueGameDeck.add(temp);
 		}
 		
 		//loads the rooms into the deck
 		for(int i=0; i<roomsList.size();i++){
 			Card temp = new Card(roomsList.get(i),Card.typeOfCard.ROOM);
-			cardList.add(temp);
+			clueGameDeck.add(temp);
 		}
 		
 	}

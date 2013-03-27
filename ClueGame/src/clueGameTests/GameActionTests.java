@@ -60,6 +60,9 @@ public class GameActionTests {
 		Card weapon = new Card("Lead Pipe", typeOfCard.WEAPON);
 		Card room = new Card("Kitchen", typeOfCard.ROOM);
 
+		ArrayList<Card> testAccusationList = new ArrayList<Card>();
+		testAccusationList.add(person); testAccusationList.add(weapon); testAccusationList.add(room);
+		
 		//pass the three cards into the solution held by ClueGame
 		testGame.setSolution(person);
 		testGame.setSolution(weapon);
@@ -69,6 +72,8 @@ public class GameActionTests {
 		assertTrue(testGame.getSolution().get(0).getName() == "Miss Scarlet");
 		assertTrue(testGame.getSolution().get(1).getName() == "Lead Pipe");
 		assertTrue(testGame.getSolution().get(2).getName() == "Kitchen");
+		
+		assertTrue(testGame.makeAccusation(testAccusationList)); //Tests the actual accusation function.
 	}
 
 	/* Uncomment once pickLocation is done. &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&

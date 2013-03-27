@@ -24,7 +24,7 @@ public class GameSetupTests {
 	@Before
 	public void setUp() throws FileNotFoundException{
 		board = new Board();
-		testGame = new ClueGame();
+		//testGame = new ClueGame();
 		board.loadConfigFiles();
 	}
 
@@ -96,6 +96,8 @@ public class GameSetupTests {
 	};
 
 
+	
+	//Operational.
 	@Test
 	public void testCardDealing() { //Test that cards have been properly dealt to the players. 
 		
@@ -107,9 +109,19 @@ public class GameSetupTests {
 		Card testCardHall = new Card("Hall", Card.typeOfCard.ROOM);
 		Card testCardKitchen = new Card("Kitchen", Card.typeOfCard.ROOM);
 		
+		ArrayList<Card> testDeck = new ArrayList<Card>();
+		testDeck.add(testCardKnife); testDeck.add(testCardPipe); testDeck.add(testCardMustard);
+		testDeck.add(testCardGreen); testDeck.add(testCardHall); testDeck.add(testCardKitchen);
 		
+		ArrayList<Card> emptyHand = new ArrayList<Card>();
+		Player testPlayerA = new Player("A", emptyHand, "Limbo", "NA" );
+		Player testPlayerB = new Player("B", emptyHand, "Limbo", "NA" );
+		Player testPlayerC = new Player("C", emptyHand, "Limbo", "NA" );
 		
-		ClueGame testGame = new ClueGame();
+		ArrayList<Player> testplayerList = new ArrayList<Player>();
+		testplayerList.add(testPlayerA); testplayerList.add(testPlayerB); testplayerList.add(testPlayerC);
+		
+		ClueGame testGame = new ClueGame(testplayerList, testDeck);
 
 		int [] playerHandSize = new int[testGame.getPlayerList().size()];
 		for(int i = 0; i < testGame.getPlayerList().size(); i++){ //Gets the hand sizes of the players

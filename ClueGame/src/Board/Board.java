@@ -1,12 +1,15 @@
 package Board;
 
 import java.util.*;
+import java.awt.Graphics;
 import java.io.*;
+
+import javax.swing.JPanel;
 
 import Board.BadConfigFormatException.errorType;
 import Board.RoomCell.DoorDirection;
 
-public class Board {
+public class Board extends JPanel{
 	private ArrayList<BoardCell> cells;
 	private Map<Character,String> rooms;
 	private int numRows;
@@ -293,5 +296,10 @@ public class Board {
 
 	public LinkedList<Integer> getAdjList(int index) {
 		return adjMap.get(index);
+	}
+
+	//goes through and will tell each boardCell to draw itself
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 	}
 }

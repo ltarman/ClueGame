@@ -31,7 +31,7 @@ public class ClueGame extends JFrame{
 	private Board board;
 	
 	
-	public ClueGame() throws FileNotFoundException {
+	public ClueGame() {
 		solution = new ArrayList<Card>();
 		playerList = new ArrayList<Player>();
 		clueGameDeck = new ArrayList<Card>();
@@ -271,7 +271,7 @@ public class ClueGame extends JFrame{
 	}
 	
 	//Should change this so we can alter the file it checks
-	private void loadPlayerList() throws FileNotFoundException{
+	private void loadPlayerList(){
 		ArrayList<String> playerNames = new ArrayList<String>();
 		ArrayList<String> initialPlayerLocations = new ArrayList<String>();
 		ArrayList<String> playerColors = new ArrayList<String>();
@@ -280,20 +280,25 @@ public class ClueGame extends JFrame{
 		int iteration = 0;
 		
 		File inFile = new File("PlayerInfo.txt");
-		Scanner scanner = new Scanner(inFile);
-		while(scanner.hasNextLine()){
-			String[] lineOfData = scanner.nextLine().split(",");	// Converts a row of data in the file to an array of strings
-			lineOfData[2] = lineOfData[2].trim();
-			playerNames.add(lineOfData[0]);
-			initialPlayerLocations.add(lineOfData[1]);
-			playerColors.add(lineOfData[2]);
-			
-			if(playerNames.size() == 1) { //If only one player's worth of info has been added, then use it to make a human player.
-				playerList.add(new HumanPlayer(playerNames.get(0),emptyCardList, initialPlayerLocations.get(0), playerColors.get(0)));
-			} else { //Otherwise, add a computer player
-				playerList.add(new ComputerPlayer(playerNames.get(iteration),emptyCardList, initialPlayerLocations.get(iteration), playerColors.get(iteration)));
+		Scanner scanner;
+		try {
+			scanner = new Scanner(inFile);
+			while(scanner.hasNextLine()){
+				String[] lineOfData = scanner.nextLine().split(",");	// Converts a row of data in the file to an array of strings
+				lineOfData[2] = lineOfData[2].trim();
+				playerNames.add(lineOfData[0]);
+				initialPlayerLocations.add(lineOfData[1]);
+				playerColors.add(lineOfData[2]);
+				
+				if(playerNames.size() == 1) { //If only one player's worth of info has been added, then use it to make a human player.
+					playerList.add(new HumanPlayer(playerNames.get(0),emptyCardList, initialPlayerLocations.get(0), playerColors.get(0)));
+				} else { //Otherwise, add a computer player
+					playerList.add(new ComputerPlayer(playerNames.get(iteration),emptyCardList, initialPlayerLocations.get(iteration), playerColors.get(iteration)));
+				}
+				iteration++;
 			}
-			iteration++;
+		} catch (FileNotFoundException e) {
+			System.out.println("PlayerInfo.txt not found");
 		}
 	}
 	

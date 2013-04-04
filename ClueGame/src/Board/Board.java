@@ -303,10 +303,16 @@ public class Board extends JPanel{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 
+			ClueGame game = new ClueGame();
+
+
 		for(int y = 0; y<numRows;y++){
 			for (int x = 0;x<numColumns;x++){
 				cells.get(calcIndex(y,x)).draw(g, x*20, y*20);
 			}
+		}
+		for(int i=0;i<game.getPlayerList().size();i++){
+			game.getPlayerList().get(i).draw(g,this);
 		}
 	}
 }

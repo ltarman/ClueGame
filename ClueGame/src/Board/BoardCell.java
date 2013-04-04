@@ -8,11 +8,6 @@ abstract public class BoardCell {
 	private int column;
 	private char inital;
 	
-	//these will define where the cell will be drawn in pixels
-	//they represent the top left corner of each cell
-	private int pixelX;
-	private int pixelY;
-	
 	public char getInitial() {
 		return inital;
 	}

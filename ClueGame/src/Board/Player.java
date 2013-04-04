@@ -59,7 +59,7 @@ public class Player {
 			g.setColor(Color.BLUE);
 		}
 		if(color.equals("Yellow")) {
-			g.setColor(Color.YELLOW);
+			g.setColor(Color.ORANGE);
 		}
 		if(color.equals("Green")) {
 			g.setColor(Color.GREEN);

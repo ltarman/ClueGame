@@ -303,11 +303,9 @@ public class Board extends JPanel{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 
-		for(int i = 0; i<cells.size();i++){
-			for(int y = 0; y<numColumns*20;y=y+20){
-				for (int x = 0;x<numRows*20;x=x+20){
-					cells.get(i).draw(g, x, y);
-				}
+		for(int y = 0; y<numRows;y++){
+			for (int x = 0;x<numColumns;x++){
+				cells.get(calcIndex(y,x)).draw(g, x*20, y*20);
 			}
 		}
 	}

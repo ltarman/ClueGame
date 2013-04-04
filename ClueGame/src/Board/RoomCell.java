@@ -37,19 +37,21 @@ public class RoomCell extends BoardCell {
 		return true;
 	}
 	
+	
 	@Override
 	public void draw(Graphics g,int x, int y){
 		g.setColor(Color.gray);
 		g.fillRect(x,y,20,20);
 		g.setColor(Color.black);
-		g.drawRect(x, y, 21, 21);
+		g.drawRect(x, y, 20, 20);
 		
 		g.setColor(Color.blue);
 		//set the color of an edge to where the door is
-		if (doorDirection == DoorDirection.LEFT){g.drawLine(x, y, x, y+20);}
-		else if(doorDirection == DoorDirection.RIGHT){g.drawLine(x+20, y, x, y+20);}
-		else if(doorDirection == DoorDirection.DOWN){g.drawLine(x, y+20, x+20, y+20);}
-		else if(doorDirection == DoorDirection.UP){g.drawLine(x, y, x+20, y);}
+		
+		if (doorDirection == DoorDirection.LEFT){g.fillRect(x, y, 4, 20);}
+		else if(doorDirection == DoorDirection.RIGHT){g.fillRect(x+16, y, 4, 20);}
+		else if(doorDirection == DoorDirection.DOWN){g.fillRect(x, y+16, 20, 4);}
+		else if(doorDirection == DoorDirection.UP){g.fillRect(x, y, 20, 4);}
 		
 	}
 }

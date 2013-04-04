@@ -12,10 +12,10 @@ public class WalkwayCell extends BoardCell {
 		super(row,col);
 	}
 	
-	//@Override
-//	public void draw(Graphics g,int x, int y){
-//		g.setColor(Color.yellow);
-//		g.fillRect(x,y,20,20);
+	@Override
+	public void draw(Graphics g,int x, int y){
+		g.setColor(Color.yellow);
+		g.fillRect(x,y,20,20);
 				
-//	}
+	}
 }

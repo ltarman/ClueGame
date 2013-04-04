@@ -19,7 +19,9 @@ public class Board extends JPanel{
 	private Map<Integer,LinkedList<Integer>> adjMap;
 	private Set<Integer> targets;
 	private boolean[] visited;
-
+	public DetectiveNotesDialog playerNotes;
+	
+	
 	public Board() {
 		this.cells = new ArrayList<BoardCell>();
 		this.rooms = new HashMap<Character,String>();
@@ -30,7 +32,7 @@ public class Board extends JPanel{
 		this.adjMap = new HashMap<Integer,LinkedList<Integer>>();
 		this.targets = new HashSet<Integer>();
 		
-		DetectiveNotesDialog playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
+		playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
 		
 		playerNotes.setVisible(true); //Change this to activate when triggered via menu.
 		

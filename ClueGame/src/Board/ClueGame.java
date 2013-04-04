@@ -2,6 +2,8 @@ package Board;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,6 +13,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import Board.BadConfigFormatException;
 import Board.Player;
@@ -43,6 +48,13 @@ public class ClueGame extends JFrame{
 		seenWeapons = new ArrayList<Card>();
 		seenPeople = new ArrayList<Card>();
 		seenRooms = new ArrayList<Card>();
+		
+		setTitle("Clue Board");
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(createFileMenu());
+		
 	}
 	
 	public ClueGame(ArrayList<Player> playerListIn, ArrayList<Card> cardListIn) { //Used for testing
@@ -311,9 +323,34 @@ public class ClueGame extends JFrame{
 		
 	}
 
-		
-	/*
-
-	*/
-
+	private JMenu createFileMenu() {
+		JMenu menu = new JMenu("File");
+		menu.add(createFileExitItem());
+		menu.add(createFileShowDetectiveNotes());
+		return menu;
+	}
+	
+	private JMenuItem createFileExitItem() {
+		JMenuItem item = new JMenuItem("Exit");
+		  class MenuItemListener implements ActionListener {
+		    public void actionPerformed(ActionEvent e)
+		    {
+		       System.exit(0);
+		    }
+		  }
+		  item.addActionListener(new MenuItemListener());
+		  return item;
+	}
+	
+private JMenuItem createFileShowDetectiveNotes() {
+	JMenuItem item = new JMenuItem("Show Detective Notes");
+	  class MenuItemListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e)
+	    {
+	       board.playerNotes.setVisible(true);
+	    }
+	  }
+	  item.addActionListener(new MenuItemListener());
+	  return item;
+	}
 }

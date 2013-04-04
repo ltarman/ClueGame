@@ -29,6 +29,11 @@ public class Board extends JPanel{
 
 		this.adjMap = new HashMap<Integer,LinkedList<Integer>>();
 		this.targets = new HashSet<Integer>();
+		
+		DetectiveNotesDialog playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
+		
+		playerNotes.setVisible(true); //Change this to activate when triggered via menu.
+		
 	}
 
 	public void loadConfigFiles() {

@@ -1,5 +1,7 @@
 package Board;
 
+import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,12 +10,14 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 import Board.BadConfigFormatException;
 import Board.Player;
 import Board.BadConfigFormatException.errorType;
 
 
-public class ClueGame {
+public class ClueGame extends JFrame{
 	
 	private ArrayList<Card> clueGameDeck; //Includes only the cards that are to be dealt to the players (doesn't include solution)
 	private ArrayList<Card> clueGameFullDeck; // Includes all cards, necessary for computer guesses
@@ -23,6 +27,8 @@ public class ClueGame {
 	private ArrayList<Card> seenWeapons;
 	private ArrayList<Card> seenPeople;
 	private ArrayList<Card> seenRooms;
+	
+	private Board board;
 	
 	
 	public ClueGame() throws FileNotFoundException {
@@ -46,6 +52,15 @@ public class ClueGame {
 		seenPeople = new ArrayList<Card>();
 		seenRooms = new ArrayList<Card>();
 		solution = new ArrayList<Card>();
+	}
+	
+	//used to draw the board for testing
+	public void boardGuiInitalize(){
+		//added so I can draw the board
+		board = new Board();
+		board.loadConfigFiles();
+		add(board,BorderLayout.CENTER);
+		setSize(1000,1000);
 	}
 	
 	public void addToSeenCards(Card cardIn) {

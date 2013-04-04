@@ -1,5 +1,6 @@
 package Board;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 abstract public class BoardCell {
@@ -27,7 +28,9 @@ abstract public class BoardCell {
 	
 	//abstract method for each BoardCell to draw itself
 	public void draw(Graphics g,int x, int y) {
-		// TODO Auto-generated method stub
-		
+		g.setColor(Color.green);
+		g.fillRect(x,y,20,20);
+		g.setColor(Color.red);
+		g.drawRect(x, y, 21, 21);
 	}
 }

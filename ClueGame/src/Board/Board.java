@@ -1,6 +1,7 @@
 package Board;
 
 import java.util.*;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.*;
 
@@ -301,5 +302,13 @@ public class Board extends JPanel{
 	//goes through and will tell each boardCell to draw itself
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+
+		for(int i = 0; i<cells.size();i++){
+			for(int y = 0; y<numColumns*20;y=y+20){
+				for (int x = 0;x<numRows*20;x=x+20){
+					cells.get(i).draw(g, x, y);
+				}
+			}
+		}
 	}
 }

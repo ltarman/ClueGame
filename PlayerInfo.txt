@@ -1,6 +1,6 @@
-Miss Scarlet,humanStartLocation,Red
-Colonel Mustard,comp1StartLocation,Yellow
-Mrs. White,comp2StartLocation,White
-Mr. Green,comp3StartLocation,Green
-Mrs. Peacock,comp4StartLocation,Blue
-Professor Plum,comp5StartLocation,Purple
+Miss Scarlet,214,Red,
+Colonel Mustard,43,Yellow,
+Mr. Green,452,Green,
+Professor Plum,492,Purple,
+Peacock,167,Blue,
+White,346,White

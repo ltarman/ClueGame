@@ -48,10 +48,36 @@ public class Player {
 	public void draw(Graphics g,Board board){
 		int row = (int) Math.floor(index/board.getNumColumns());
 		int col = index-row*board.getNumColumns();
-		g.setColor(convertColor(color));
-		g.fillOval(col, row, 20, 20);
+		
+		System.out.println("Color is:" +color);
+		
+		if(color.equals("Red")) {
+			g.setColor(Color.RED);
+			System.out.println("Color is:" +color);
+		}
+		if(color.equals("Blue")) {
+			g.setColor(Color.BLUE);
+		}
+		if(color.equals("Yellow")) {
+			g.setColor(Color.YELLOW);
+		}
+		if(color.equals("Green")) {
+			g.setColor(Color.GREEN);
+		}
+		if(color.equals("White")) {
+			g.setColor(Color.WHITE);
+		}
+		if(color.equals("Purple")) {
+			g.setColor(Color.MAGENTA);
+		}
+		
+		
+		//System.out.println(convertColor(color));
+		//g.setColor(convertColor(color));
+		
+		g.fillOval(col*20, row*20, 18, 18);
 		g.setColor(Color.BLACK);
-		g.drawOval(col, row, 20, 20);
+		g.drawOval(col*20, row*20, 19, 19);
 		
 		
 	}

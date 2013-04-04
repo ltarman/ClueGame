@@ -284,7 +284,11 @@ public class ClueGame extends JFrame{
 		try {
 			scanner = new Scanner(inFile);
 			while(scanner.hasNextLine()){
-				String[] lineOfData = scanner.nextLine().split(",");	// Converts a row of data in the file to an array of strings
+				String[] lineOfData = scanner.nextLine().split(",");
+				System.out.println(lineOfData[0]);
+				System.out.println(lineOfData[1]);
+				System.out.println(lineOfData[2]);
+				// Converts a row of data in the file to an array of strings
 				lineOfData[2] = lineOfData[2].trim();
 				playerNames.add(lineOfData[0]);
 				initialPlayerLocations.add(lineOfData[1]);
@@ -315,10 +319,5 @@ public class ClueGame extends JFrame{
 		return in;
 		
 	}
-
-		
-	/*
-
-	*/
 
 }

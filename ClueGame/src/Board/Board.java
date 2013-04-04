@@ -33,9 +33,6 @@ public class Board extends JPanel{
 		this.targets = new HashSet<Integer>();
 		
 		playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
-		
-		//playerNotes.setVisible(true); //Change this to activate when triggered via menu.
-		
 	}
 
 	public void loadConfigFiles() {

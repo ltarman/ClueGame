@@ -18,8 +18,6 @@ public class ComputerPlayer extends Player{
 	}
 
 	
-	//This needs to be worked on. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
 	public int pickLocation(Set<Integer> possibleTargets, Board board) {
 		//Selects a random cell from the calculated list of targets
 		int r = 0;

@@ -297,9 +297,9 @@ public class ClueGame extends JFrame{
 			scanner = new Scanner(inFile);
 			while(scanner.hasNextLine()){
 				String[] lineOfData = scanner.nextLine().split(",");
-				System.out.println(lineOfData[0]);
-				System.out.println(lineOfData[1]);
-				System.out.println(lineOfData[2]);
+				//System.out.println(lineOfData[0]);
+				//System.out.println(lineOfData[1]);
+				//System.out.println(lineOfData[2]);
 				// Converts a row of data in the file to an array of strings
 				lineOfData[2] = lineOfData[2].trim();
 				playerNames.add(lineOfData[0]);
@@ -335,8 +335,8 @@ public class ClueGame extends JFrame{
 
 	private JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
-		menu.add(createFileExitItem());
 		menu.add(createFileShowDetectiveNotes());
+		menu.add(createFileExitItem());
 		return menu;
 	}
 

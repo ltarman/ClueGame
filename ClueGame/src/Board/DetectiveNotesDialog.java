@@ -20,14 +20,9 @@ public class DetectiveNotesDialog extends JFrame{
 	private notesDialog dialog;
 
 	public DetectiveNotesDialog() { //Displays the detective notes panel
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Detective Notes");
 		setSize(600, 800);
-
 		dialog = new notesDialog();
-		
-		dialog.setVisible(true);
-		
 	}
 
 	public class notesDialog extends JDialog{ //Necessary to have the panel be a pop-up

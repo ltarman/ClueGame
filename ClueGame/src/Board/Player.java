@@ -49,17 +49,15 @@ public class Player {
 		int row = (int) Math.floor(index/board.getNumColumns());
 		int col = index-row*board.getNumColumns();
 		
-		System.out.println("Color is:" +color);
 		
 		if(color.equals("Red")) {
 			g.setColor(Color.RED);
-			System.out.println("Color is:" +color);
 		}
 		if(color.equals("Blue")) {
 			g.setColor(Color.BLUE);
 		}
 		if(color.equals("Yellow")) {
-			g.setColor(Color.YELLOW);
+			g.setColor(Color.ORANGE);
 		}
 		if(color.equals("Green")) {
 			g.setColor(Color.GREEN);
@@ -75,9 +73,9 @@ public class Player {
 		//System.out.println(convertColor(color));
 		//g.setColor(convertColor(color));
 		
-		g.fillOval(col*20, row*20, 18, 18);
+		g.fillOval(col*20+2, row*20+2, 16, 16);
 		g.setColor(Color.BLACK);
-		g.drawOval(col*20, row*20, 19, 19);
+		g.drawOval(col*20+2, row*20+2, 16, 16);
 		
 		
 	}
@@ -113,7 +111,7 @@ public class Player {
 		return location;
 	}
 	
-	public void setLocation(String newLocation){ //FOR TESTING ONLY!!! DELETE THIS
+	public void setLocation(String newLocation){ //FOR TESTING ONLY!!!
 		location = newLocation;
 	}
 

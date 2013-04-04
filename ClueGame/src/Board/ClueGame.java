@@ -72,7 +72,7 @@ public class ClueGame extends JFrame{
 		board = new Board();
 		board.loadConfigFiles();
 		add(board,BorderLayout.CENTER);
-		setSize(500,500);
+		setSize(520,560);
 	}
 	
 	public void addToSeenCards(Card cardIn) {

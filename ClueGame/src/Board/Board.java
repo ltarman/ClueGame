@@ -322,6 +322,7 @@ public class Board extends JPanel{
 			game.getPlayerList().get(i).draw(g,this);
 		}
 		
+		//room text generation
 		g.setColor(Color.BLACK);
 		g.drawString("Kitchen", 25, 45);
 		g.drawString("Ballroom",20 , 275);

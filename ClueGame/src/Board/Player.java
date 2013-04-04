@@ -11,14 +11,16 @@ public class Player {
 
 	private String name;
 	private String color;
-	private int location; //The name of the room the player is in. Used to determine which room card must be suggested for a suggestion
+	private String location; //The name of the room the player is in. Used to determine which room card must be suggested for a suggestion
 	              //NOTE: the room cells have a char for their room identification, we must convert the char to a string to update this!
 	private ArrayList<Card> playerCardList;
+	private int index;
 	
 	public Player(String playerName, ArrayList<Card> cards, String location, String color) {
 		super();
 		this.name = playerName;
-		this.location = Integer.parseInt(location);
+		this.location = location;
+		this.index = Integer.parseInt(location);
 		this.color = color;
 		playerCardList = cards;
 	}
@@ -44,8 +46,8 @@ public class Player {
 	
 	//draws the player as a circle of their color and black outline
 	public void draw(Graphics g,Board board){
-		int row = (int) Math.floor(location/board.getNumColumns());
-		int col = location-row*board.getNumColumns();
+		int row = (int) Math.floor(index/board.getNumColumns());
+		int col = index-row*board.getNumColumns();
 		g.setColor(convertColor(color));
 		g.fillOval(col, row, 20, 20);
 		g.setColor(Color.BLACK);
@@ -81,11 +83,11 @@ public class Player {
 		return color;
 	}
 	
-	public int getLocation(){
+	public String getLocation(){
 		return location;
 	}
 	
-	public void setLocation(int newLocation){ //FOR TESTING ONLY!!! DELETE THIS
+	public void setLocation(String newLocation){ //FOR TESTING ONLY!!! DELETE THIS
 		location = newLocation;
 	}
 

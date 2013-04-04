@@ -19,7 +19,9 @@ public class Board extends JPanel{
 	private Map<Integer,LinkedList<Integer>> adjMap;
 	private Set<Integer> targets;
 	private boolean[] visited;
-
+	public DetectiveNotesDialog playerNotes;
+	
+	
 	public Board() {
 		this.cells = new ArrayList<BoardCell>();
 		this.rooms = new HashMap<Character,String>();
@@ -29,6 +31,11 @@ public class Board extends JPanel{
 
 		this.adjMap = new HashMap<Integer,LinkedList<Integer>>();
 		this.targets = new HashSet<Integer>();
+		
+		playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
+		
+		//playerNotes.setVisible(true); //Change this to activate when triggered via menu.
+		
 	}
 
 	public void loadConfigFiles() {
@@ -314,5 +321,19 @@ public class Board extends JPanel{
 		for(int i=0;i<game.getPlayerList().size();i++){
 			game.getPlayerList().get(i).draw(g,this);
 		}
+		
+		g.setColor(Color.BLACK);
+		g.drawString("Kitchen", 25, 45);
+		g.drawString("Ballroom",20 , 275);
+		g.drawString("Bathroom", 138, 30);
+		g.drawString("Dinning Room",230,45 );
+		g.drawString("Study",430,45 );
+		g.drawString("Closet",200,200);
+		g.drawString("Library",370,190 );
+		g.drawString("Living Room",40,425);
+		g.drawString("Lobby",230,425);
+		g.drawString("Bedroom",420,360);
+		
+		
 	}
 }

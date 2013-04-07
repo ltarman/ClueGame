@@ -16,6 +16,8 @@ public class Player {
 	private ArrayList<Card> playerCardList;
 	private int index;
 	
+	private ClueGame connectGame;
+	
 	public Player(String playerName, ArrayList<Card> cards, String location, String color) {
 		super();
 		this.name = playerName;
@@ -23,6 +25,10 @@ public class Player {
 		this.index = Integer.parseInt(location);
 		this.color = color;
 		playerCardList = cards;
+	}
+	
+	public void connectToGame(ClueGame gameIn) {
+		connectGame = gameIn;
 	}
 	
 	public void playerTurn() {

@@ -40,6 +40,12 @@ public class ClueGame extends JFrame{
 	
 	private Board board;
 	private int currentPlayer;
+	private int randomRollValue;
+	
+	JTextField turnDisplay = new JTextField();
+	JTextField rollValue = new JTextField();
+	JTextField guessValue = new JTextField();
+	JTextField responseValue = new JTextField();
 	
 	public ClueGame() {
 		solution = new ArrayList<Card>();
@@ -86,7 +92,7 @@ public class ClueGame extends JFrame{
 		board.connectToGame(this);
 		board.loadConfigFiles();
 		
-		ButtonListener(this);
+		//ButtonListener(this);
 		
 		add(board,BorderLayout.CENTER);
 		add(displayInfoPanels(),BorderLayout.SOUTH);
@@ -95,14 +101,11 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void nextFunction() {
-		
-		
+		Random randomGen = new Random();
+		randomRollValue = randomGen.nextInt(6) + 1;
+		rollValue.setText(Integer.toString(randomRollValue));
+		turnDisplay.setText(playerList.get(currentPlayer).getName());
 
-		
-		
-		playerList.get(currentPlayer).playerTurn();
-		
-		
 		
 		
 		currentPlayer++;
@@ -430,19 +433,19 @@ public class ClueGame extends JFrame{
 	
 	private JPanel displayInfoPanels() {
 		JLabel nameLabel = new JLabel("Whose turn?");
-		JTextField turnDisplay = new JTextField();
+		
 		turnDisplay.setEnabled(false);
 		
 		JLabel rollLabel = new JLabel("Die value:");
-		JTextField rollValue = new JTextField();
+		
 		rollValue.setEnabled(false);
 		
 		JLabel guessLabel = new JLabel("Suggested cards:");
-		JTextField guessValue = new JTextField();
+		
 		guessValue.setEnabled(false);
 		
 		JLabel resultlabel = new JLabel("Suggestion result");
-		JTextField responseValue = new JTextField();
+		
 		responseValue.setEnabled(false);
 		
 		JPanel displayFullPanel = new JPanel();
@@ -460,34 +463,23 @@ public class ClueGame extends JFrame{
 		displayCenterPanel.add(responseValue);
 
 		JButton nextButton = new JButton("Make Accusation");
-		//nextButton.addActionListener(new ButtonListener());
-		
+		//nextButton.addActionListener(new ActionListener());
+
 		JButton accuseButton = new JButton("Next Player");
-		//accuseButton.addActionListener(new ButtonListener());
-		
+		accuseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				nextFunction();
+			}
+
+		});
+
 		displayFullPanel.add(nextButton);
 		displayFullPanel.add(displayCenterPanel);
 		displayFullPanel.add(accuseButton);
-		
+
 		return displayFullPanel;
-		
+
 	}
-	
-	
-	private class ButtonListener implements ActionListener
-	{
-		private ClueGame connectedGame;
-		
-		public ButtonListener(ClueGame gameIn) {
-			connectedGame = gameIn;
-		}
-		
-		public void actionPerformed(ActionEvent e)
-		{
-			connectedGame.nextFunction();
-		}
-	}
-	
-	
 
 }

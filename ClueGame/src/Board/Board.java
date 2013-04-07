@@ -22,6 +22,7 @@ public class Board extends JPanel{
 	public DetectiveNotesDialog playerNotes;
 	public SplashScreen introScreen;
 	private ClueGame connectedGame;
+	private Boolean showPlayerTargets;
 	
 	public Board() {
 		this.cells = new ArrayList<BoardCell>();
@@ -29,6 +30,7 @@ public class Board extends JPanel{
 		this.numRows = 0;
 		this.numColumns = 0;
 		this.targets = new HashSet<Integer>();
+		showPlayerTargets = false;
 
 		this.adjMap = new HashMap<Integer,LinkedList<Integer>>();
 		this.targets = new HashSet<Integer>();
@@ -266,13 +268,16 @@ public class Board extends JPanel{
 		for(int i = 0; i < this.visited.length; i++)
 			this.visited[i] = false;
 		targets.clear();				// Clear target array
-		this.visited[index] = true;		// Set starting tile to true
+		this.visited[index] = true;	// Set starting tile to true
+		
 		calcTargets(index, steps);		// Calculate targets
 	}
 	
 	public void calcTargets(int index, int steps) {
+		
 		// Gets the adjacency list for the current cell
 		// Copies the list and puts it in a new one so we don't modify the original
+		getAdjList(index);
 		LinkedList<Integer> adjCells = new LinkedList<Integer>();
 		for (int i = 0; i < getAdjList(index).size(); i++)
 			adjCells.add(getAdjList(index).get(i));
@@ -309,7 +314,24 @@ public class Board extends JPanel{
 	public LinkedList<Integer> getAdjList(int index) {
 		return adjMap.get(index);
 	}
+	
+	public void setShowPlayerTargets(Boolean boolIn) {
+		showPlayerTargets = boolIn;
+		System.out.println("so true");
+	}
 
+	public ArrayList<Integer> indexToPixelLocation(int i) {
+		ArrayList<Integer> pixelList = new ArrayList<Integer>();
+		int gridX = i/numColumns;
+		int yPixel = 20*(i - (gridX*numColumns));
+		int xPixel = gridX *20;
+		
+		pixelList.add(xPixel);
+		pixelList.add(yPixel);
+		
+		return pixelList;
+	}
+	
 	//goes through and will tell each boardCell to draw itself
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -322,6 +344,21 @@ public class Board extends JPanel{
 				cells.get(calcIndex(y,x)).draw(g, x*20, y*20);
 			}
 		}
+		
+		if(showPlayerTargets == true) {
+			System.out.println(getTargets().size());
+			System.out.println("YAY");
+			
+			ArrayList<Integer> currentPixelLocation;
+			for(int i = 0; i<targets.size();i++){
+				currentPixelLocation = indexToPixelLocation((Integer) targets.toArray()[i]);
+				g.setColor(Color.CYAN);
+				g.fillRect(currentPixelLocation.get(1)+1,currentPixelLocation.get(0)+1,19,19);
+			}
+
+			
+		}
+		
 		for(int i=0;i<connectedGame.getPlayerList().size();i++){
 			connectedGame.getPlayerList().get(i).draw(g,this);
 		}

@@ -121,6 +121,10 @@ public class Player {
 		return location;
 	}
 	
+	public void setIndex(int intIn) {
+		index = intIn;
+	}
+	
 	public void setLocation(String newLocation){ //FOR TESTING ONLY!!!
 		location = newLocation;
 	}

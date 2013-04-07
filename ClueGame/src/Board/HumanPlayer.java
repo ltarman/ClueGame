@@ -12,19 +12,13 @@ public class HumanPlayer extends Player{
 	@Override
 	public void playerTurn(int randomRollValue){
 		
-		System.out.println(index);
-		
+		//System.out.println(index);
+		this.connectGame.togglePlayerTurn();
 		this.connectGame.getBoard().startTargets(index, randomRollValue);
 		
 		this.connectGame.getBoard().setShowPlayerTargets(true);
-		System.out.println("WHEEEEE");
 		this.connectGame.getBoard().repaint();
-		this.connectGame.validate();
-		System.out.println("WHEEEEE");
-		for(int i = 0; i < 100000000; i++) {
-			//System.out.println("WHEEEEE");
-		}
-		//this.connectGame.getBoard().setShowPlayerTargets(false);
+		//this.connectGame.validate();
 
 	}
 

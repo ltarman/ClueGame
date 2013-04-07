@@ -19,6 +19,9 @@ public class ComputerPlayer extends Player{
 	
 	@Override
 	public void playerTurn(int randomRollValue){
+		
+		this.connectGame.getBoard().setShowPlayerTargets(false);
+		
 		Board board = connectGame.getBoard();
 		board.startTargets(index, randomRollValue);
 		this.index = pickLocation(board.getTargets(),board);

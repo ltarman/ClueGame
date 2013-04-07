@@ -3,6 +3,8 @@ package Board;
 import java.util.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 
 import javax.swing.JPanel;
@@ -38,6 +40,8 @@ public class Board extends JPanel{
 		introScreen = new SplashScreen();
 		
 		playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
+		addMouseListener(new playerMouseListener());
+		
 	}
 	
 	public void connectToGame(ClueGame gameIn) {
@@ -317,7 +321,7 @@ public class Board extends JPanel{
 	
 	public void setShowPlayerTargets(Boolean boolIn) {
 		showPlayerTargets = boolIn;
-		System.out.println("so true");
+		//System.out.println("so true");
 	}
 
 	public ArrayList<Integer> indexToPixelLocation(int i) {
@@ -346,8 +350,8 @@ public class Board extends JPanel{
 		}
 		
 		if(showPlayerTargets == true) {
-			System.out.println(getTargets().size());
-			System.out.println("YAY");
+			//System.out.println(getTargets().size());
+			//System.out.println("YAY");
 			
 			ArrayList<Integer> currentPixelLocation;
 			for(int i = 0; i<targets.size();i++){
@@ -375,7 +379,54 @@ public class Board extends JPanel{
 		g.drawString("Living Room",40,425);
 		g.drawString("Lobby",230,425);
 		g.drawString("Bedroom",420,360);
-		
-		
+	}
+	
+	private int checkClickedLocation(int xIn, int yIn) {
+		int clickedIndex = -1;
+		int currentIndex;
+		ArrayList<Integer> currentPixels;
+		for(int i=0;i<targets.size();i++) {
+			currentIndex = ((Integer) targets.toArray()[i]);
+			//System.out.println("Current index is " + currentIndex);
+			currentPixels = indexToPixelLocation(currentIndex);
+			
+			if((currentPixels.get(0) < yIn) && (currentPixels.get(0)+20 > yIn)) {
+				if((currentPixels.get(1) < xIn) && (currentPixels.get(1)+20 > xIn)){
+					clickedIndex = currentIndex;
+					i = targets.size();
+				}
+			}
+		}
+		return clickedIndex;
+	}
+	
+	
+	private class playerMouseListener implements MouseListener {
+		public void mouseClicked (MouseEvent event) {
+			if(checkClickedLocation(event.getX(), event.getY()) == -1) {
+				if (connectedGame.getPlayersTurn()==true) {
+					System.out.println("Click on a cyan colored box to move to it.");
+				} else {
+					System.out.println("Its not your turn! Press next player to advance.");
+				}
+			} else if (connectedGame.getPlayersTurn() == true){
+				connectedGame.getPlayerList().get(0).setIndex(checkClickedLocation(event.getX(), event.getY()));
+				connectedGame.togglePlayerTurn();
+			}
+			//System.out.println(checkClickedLocation(event.getX(), event.getY()) + "YEAH");
+ 
+			//FUNCTIONS HERE
+			
+			repaint(); 
+			}
+
+		public void mouseEntered(MouseEvent arg0) {}
+
+		public void mouseExited(MouseEvent arg0) {}
+
+		public void mousePressed(MouseEvent arg0) {}
+
+		public void mouseReleased(MouseEvent arg0) {}
+
 	}
 }

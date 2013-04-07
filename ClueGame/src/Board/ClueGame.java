@@ -92,7 +92,7 @@ public class ClueGame extends JFrame{
 		board.connectToGame(this);
 
 		board.loadConfigFiles("legend.txt","board.csv");
-
+		board.calcAdjacencies();
 		
 		
 		add(board,BorderLayout.CENTER);

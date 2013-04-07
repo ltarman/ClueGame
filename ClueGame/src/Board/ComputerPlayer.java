@@ -20,7 +20,7 @@ public class ComputerPlayer extends Player{
 	@Override
 	public void playerTurn(int randomRollValue){
 		Board board = connectGame.getBoard();
-		board.calcTargets(index, randomRollValue);
+		board.startTargets(index, randomRollValue);
 		this.index = pickLocation(board.getTargets(),board);
 		visited = board.getCellAt(index).getInitial();
 		board.repaint();

@@ -90,9 +90,10 @@ public class ClueGame extends JFrame{
 		
 		board = new Board();
 		board.connectToGame(this);
+
 		board.loadConfigFiles("legend.txt","board.csv");
+
 		
-		//ButtonListener(this);
 		
 		add(board,BorderLayout.CENTER);
 		add(displayInfoPanels(),BorderLayout.SOUTH);
@@ -106,7 +107,7 @@ public class ClueGame extends JFrame{
 		rollValue.setText(Integer.toString(randomRollValue));
 		turnDisplay.setText(playerList.get(currentPlayer).getName());
 
-		//playerTurn(randomRollValue) here?
+		playerList.get(currentPlayer).playerTurn(randomRollValue);
 		
 		
 		currentPlayer++;
@@ -354,6 +355,7 @@ public class ClueGame extends JFrame{
 				} else { //Otherwise, add a computer player
 					playerList.add(new ComputerPlayer(playerNames.get(iteration),emptyCardList, initialPlayerLocations.get(iteration), playerColors.get(iteration)));
 				}
+				playerList.get(iteration).connectToGame(this);
 				iteration++;
 			}
 		} catch (FileNotFoundException e) {
@@ -471,6 +473,7 @@ public class ClueGame extends JFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				nextFunction();
+				
 			}
 
 		});
@@ -478,7 +481,6 @@ public class ClueGame extends JFrame{
 		displayFullPanel.add(nextButton);
 		displayFullPanel.add(displayCenterPanel);
 		displayFullPanel.add(accuseButton);
-
 		return displayFullPanel;
 
 	}

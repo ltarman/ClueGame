@@ -2,5 +2,5 @@ Miss Scarlet,150,Red,
 Colonel Mustard,18,Yellow,
 Mr. Green,450,Green,
 Professor Plum,617,Purple,
-Peacock,174,Blue,
-White,349,White
+Mrs Peacock,174,Blue,
+Mrs White,349,White

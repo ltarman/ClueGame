@@ -318,6 +318,8 @@ public class GameActionTests {
 		Card testCardPipe = new Card("Lead Pipe", Card.typeOfCard.WEAPON);
 		Card testCardMustard = new Card("Colonel Mustard", Card.typeOfCard.PERSON);
 		Card testCardGreen = new Card("Mr. Green", Card.typeOfCard.PERSON);
+		
+		//may lead to problems, instead of a name Hallway, have to use index?
 		Card testCardHall = new Card("315", Card.typeOfCard.ROOM);
 		Card testCardKitchen = new Card("Kitchen", Card.typeOfCard.ROOM);
 		
@@ -373,12 +375,6 @@ public class GameActionTests {
 		assertTrue(pipeCounts > 0);
 		assertTrue(mustardCounts > 0);
 		assertTrue(greenCounts > 0);
-		
-		System.out.println(knifeCounts);
-		System.out.println(pipeCounts);
-		System.out.println(greenCounts);
-		System.out.println(hallCounts);
-		
 		assertTrue(hallCounts == 50); //We assume that the computer is in the hall, so only the hall can be returned for the location card
 
 		assertTrue(noProblems == true); //Any random cards returned?

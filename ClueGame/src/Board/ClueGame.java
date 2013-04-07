@@ -2,6 +2,7 @@ package Board;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,10 +13,14 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Board.BadConfigFormatException;
 import Board.Player;
@@ -34,26 +39,31 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> seenRooms;
 	
 	private Board board;
-	
+	private int currentPlayer;
 	
 	public ClueGame() {
 		solution = new ArrayList<Card>();
 		playerList = new ArrayList<Player>();
 		clueGameDeck = new ArrayList<Card>();
 		clueGameFullDeck = new ArrayList<Card>();
-		
+		currentPlayer = 0;
 		loadCardList();
 		loadPlayerList();
-		
+		dealCards();
 		seenWeapons = new ArrayList<Card>();
 		seenPeople = new ArrayList<Card>();
 		seenRooms = new ArrayList<Card>();
 		
 		setTitle("Clue Board");
 		
+		System.out.println("con");
+		
+		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
+		
+		
 		
 	}
 	
@@ -69,10 +79,36 @@ public class ClueGame extends JFrame{
 	//used to draw the board for testing
 	public void boardGuiInitalize(){
 		//added so I can draw the board
+
+		System.out.println("init");
+		
 		board = new Board();
+		board.connectToGame(this);
 		board.loadConfigFiles();
+		
+		ButtonListener(this);
+		
 		add(board,BorderLayout.CENTER);
-		setSize(520,560);
+		add(displayInfoPanels(),BorderLayout.SOUTH);
+		add(displayPlayerCards(),BorderLayout.EAST);
+		setSize(640,720);
+	}
+	
+	public void nextFunction() {
+		
+		
+
+		
+		
+		playerList.get(currentPlayer).playerTurn();
+		
+		
+		
+		
+		currentPlayer++;
+		if(currentPlayer == playerList.size()) {
+			currentPlayer = 0;
+		}
 	}
 	
 	public void addToSeenCards(Card cardIn) {
@@ -108,6 +144,9 @@ public class ClueGame extends JFrame{
 	
 	//Distributes the cards to the players. Players will not have any cards when instantiated, and will receive them with this function.
 	public void dealCards() {
+		
+
+		
 		Random randomGenerator = new Random();
 		
 		ArrayList<Card> distributionDeck = clueGameDeck;
@@ -363,5 +402,92 @@ public class ClueGame extends JFrame{
 		item.addActionListener(new MenuItemListener());
 		return item;
 	}
+
+	private JPanel displayPlayerCards() {
+		JPanel playerCardPanel = new JPanel();
+		playerCardPanel.setLayout(new GridLayout(4,1));
+		
+		ArrayList<Card> playerCardList = this.getPlayerList().get(0).getPlayerCardList();
+		
+		JLabel nameLabel = new JLabel("Player's hand:");
+		playerCardPanel.add(nameLabel);
+		
+		if(playerCardList.size() > 0) {
+			JTextField card1 = new JTextField(playerCardList.get(0).getName());
+			card1.setEnabled(false);
+			JTextField card2 = new JTextField(playerCardList.get(1).getName());
+			card2.setEnabled(false);
+			JTextField card3 = new JTextField(playerCardList.get(2).getName());
+			card3.setEnabled(false);
+			playerCardPanel.add(card1);
+			playerCardPanel.add(card2);
+			playerCardPanel.add(card3);
+		}
+		
+		return playerCardPanel;
+	}
+	
+	
+	private JPanel displayInfoPanels() {
+		JLabel nameLabel = new JLabel("Whose turn?");
+		JTextField turnDisplay = new JTextField();
+		turnDisplay.setEnabled(false);
+		
+		JLabel rollLabel = new JLabel("Die value:");
+		JTextField rollValue = new JTextField();
+		rollValue.setEnabled(false);
+		
+		JLabel guessLabel = new JLabel("Suggested cards:");
+		JTextField guessValue = new JTextField();
+		guessValue.setEnabled(false);
+		
+		JLabel resultlabel = new JLabel("Suggestion result");
+		JTextField responseValue = new JTextField();
+		responseValue.setEnabled(false);
+		
+		JPanel displayFullPanel = new JPanel();
+		displayFullPanel.setLayout(new GridLayout(1,3));
+		
+		JPanel displayCenterPanel = new JPanel();
+		displayCenterPanel.setLayout(new GridLayout(8,1));
+		displayCenterPanel.add(nameLabel);
+		displayCenterPanel.add(turnDisplay);
+		displayCenterPanel.add(rollLabel);
+		displayCenterPanel.add(rollValue);
+		displayCenterPanel.add(guessLabel);
+		displayCenterPanel.add(guessValue);
+		displayCenterPanel.add(resultlabel);
+		displayCenterPanel.add(responseValue);
+
+		JButton nextButton = new JButton("Make Accusation");
+		//nextButton.addActionListener(new ButtonListener());
+		
+		JButton accuseButton = new JButton("Next Player");
+		//accuseButton.addActionListener(new ButtonListener());
+		
+		displayFullPanel.add(nextButton);
+		displayFullPanel.add(displayCenterPanel);
+		displayFullPanel.add(accuseButton);
+		
+		return displayFullPanel;
+		
+	}
+	
+	
+	private class ButtonListener implements ActionListener
+	{
+		private ClueGame connectedGame;
+		
+		public ButtonListener(ClueGame gameIn) {
+			connectedGame = gameIn;
+		}
+		
+		public void actionPerformed(ActionEvent e)
+		{
+			connectedGame.nextFunction();
+		}
+	}
+	
+	
 
 }

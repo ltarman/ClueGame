@@ -20,7 +20,8 @@ public class Board extends JPanel{
 	private Set<Integer> targets;
 	private boolean[] visited;
 	public DetectiveNotesDialog playerNotes;
-	
+	public SplashScreen introScreen;
+	private ClueGame connectedGame;
 	
 	public Board() {
 		this.cells = new ArrayList<BoardCell>();
@@ -32,7 +33,13 @@ public class Board extends JPanel{
 		this.adjMap = new HashMap<Integer,LinkedList<Integer>>();
 		this.targets = new HashSet<Integer>();
 		
+		introScreen = new SplashScreen();
+		
 		playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
+	}
+	
+	public void connectToGame(ClueGame gameIn) {
+		connectedGame = gameIn;
 	}
 
 	public void loadConfigFiles() {
@@ -307,7 +314,7 @@ public class Board extends JPanel{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 
-			ClueGame game = new ClueGame();
+
 
 
 		for(int y = 0; y<numRows;y++){
@@ -315,8 +322,8 @@ public class Board extends JPanel{
 				cells.get(calcIndex(y,x)).draw(g, x*20, y*20);
 			}
 		}
-		for(int i=0;i<game.getPlayerList().size();i++){
-			game.getPlayerList().get(i).draw(g,this);
+		for(int i=0;i<connectedGame.getPlayerList().size();i++){
+			connectedGame.getPlayerList().get(i).draw(g,this);
 		}
 		
 		//room text generation

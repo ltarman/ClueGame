@@ -25,6 +25,10 @@ public class Player {
 		playerCardList = cards;
 	}
 	
+	public void playerTurn() {
+		
+	}
+	
 	public Card disproveSuggestion(Card A, Card B, Card C) {
 		Random randomGenerator = new Random();
 		ArrayList<Card> returnCard = new ArrayList<Card>();

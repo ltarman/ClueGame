@@ -41,7 +41,7 @@ public class GameActionTests {
 	public void test() throws FileNotFoundException {
 		//Initializing the board and the game
 		board = new Board();
-		board.loadConfigFiles();
+		board.loadConfigFiles("legend.txt","board.csv");
 		testDeck = new ArrayList<Card>();
 
 	}

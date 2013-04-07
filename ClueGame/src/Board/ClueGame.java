@@ -90,7 +90,7 @@ public class ClueGame extends JFrame{
 		
 		board = new Board();
 		board.connectToGame(this);
-		board.loadConfigFiles();
+		board.loadConfigFiles("legend.txt","board.csv");
 		
 		//ButtonListener(this);
 		

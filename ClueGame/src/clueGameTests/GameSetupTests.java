@@ -25,7 +25,7 @@ public class GameSetupTests {
 	public void setUp() throws FileNotFoundException{
 		board = new Board();
 		//testGame = new ClueGame();
-		board.loadConfigFiles();
+		board.loadConfigFiles("legend.txt","board.csv");
 	}
 
 	@Test

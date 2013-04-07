@@ -80,7 +80,7 @@ public class GameActionTests {
 	@Test
 	public void testRandomTarget(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate	
-		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "W", "Blue");
+		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "315", "Blue");
 		int test11_14 = 0;
 		int test12_15 = 0;
 		int test13_14 = 0;
@@ -111,7 +111,7 @@ public class GameActionTests {
 	public void testRoomSelection(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate
 		int index = board.calcIndex(9, 15);
-		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "W", "Blue");
+		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "315", "Blue");
 		
 		//load the adj list into the board
 		board.calcAdjacencies();
@@ -129,7 +129,7 @@ public class GameActionTests {
 	public void testVisited(){
 		//calculate an index for a spot on the board and create a new computer player to manipulate
 		int index = board.calcIndex(9, 15);
-		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "W", "Blue");
+		ComputerPlayer player = new ComputerPlayer("comp", testDeck, "315", "Blue");
 		player.setVisited('R');
 		board.calcAdjacencies();
 		board.calcTargets(index, 1);
@@ -174,19 +174,19 @@ public class GameActionTests {
 		testCardListA.add(testCardKnife);testCardListA.add(testCardMustard); testCardListA.add(testCardPipe);
 		testCardListA.add(testCardGreen); testCardListA.add(testCardHall); testCardListA.add(testCardKitchen); 
 
-		Player testPlayerA = new Player("TestPlayerAlpha", testCardListA, "Limbo", "Clear"); //Creates first player, gives appropriate cards
+		Player testPlayerA = new Player("TestPlayerAlpha", testCardListA, "341", "Clear"); //Creates first player, gives appropriate cards
 
 		Card testCardCandle = new Card("Candlestick", Card.typeOfCard.WEAPON);
 		Card testCardWhite = new Card("Mrs. White", Card.typeOfCard.PERSON);
 		Card testCardLibrary = new Card("Library", Card.typeOfCard.ROOM);
 		testCardListB.add(testCardCandle); testCardListB.add(testCardWhite); testCardListB.add(testCardLibrary); 
-		Player testPlayerB = new Player("TestPlayerBeta", testCardListB, "Limbo", "Undefined"); //Same, but now for a second player
+		Player testPlayerB = new Player("TestPlayerBeta", testCardListB, "341", "Undefined"); //Same, but now for a second player
 
 		Card testCardWrench = new Card("Wrench", Card.typeOfCard.WEAPON);
 		Card testCardPlum = new Card("Professor Plum", Card.typeOfCard.PERSON);
 		Card testCardLounge = new Card("Lounge", Card.typeOfCard.ROOM);
 		testCardListC.add(testCardWrench); testCardListC.add(testCardPlum); testCardListC.add(testCardLounge);
-		Player testPlayerH = new HumanPlayer("TestPlayerEta", testCardListC, "Limbo", "NotApplicable"); //Same, but now for a human player
+		Player testPlayerH = new HumanPlayer("TestPlayerEta", testCardListC, "341", "NotApplicable"); //Same, but now for a human player
 
 		Card testCardRope = new Card("Rope", Card.typeOfCard.WEAPON);
 		Card testCardScarlet = new Card("Miss Scarlet", Card.typeOfCard.PERSON);
@@ -309,7 +309,7 @@ public class GameActionTests {
 
 
 		ArrayList<Card> testCardList = new ArrayList<Card>();
-		ComputerPlayer testPlayerA = new ComputerPlayer("TestPlayerAlpha", testCardList, "Limbo", "Clear");
+		ComputerPlayer testPlayerA = new ComputerPlayer("TestPlayerAlpha", testCardList, "341", "Clear");
 		ArrayList<Player> testPlayerList = new ArrayList<Player>();
 		testPlayerList.add(testPlayerA);
 		
@@ -318,7 +318,7 @@ public class GameActionTests {
 		Card testCardPipe = new Card("Lead Pipe", Card.typeOfCard.WEAPON);
 		Card testCardMustard = new Card("Colonel Mustard", Card.typeOfCard.PERSON);
 		Card testCardGreen = new Card("Mr. Green", Card.typeOfCard.PERSON);
-		Card testCardHall = new Card("Hall", Card.typeOfCard.ROOM);
+		Card testCardHall = new Card("315", Card.typeOfCard.ROOM);
 		Card testCardKitchen = new Card("Kitchen", Card.typeOfCard.ROOM);
 		
 		testCardList.add(testCardKnife); testCardList.add(testCardPipe); testCardList.add(testCardMustard);
@@ -334,7 +334,7 @@ public class GameActionTests {
 		int greenCounts = 0;
 		int hallCounts = 0;
 
-		ComputerPlayer testComputer = new ComputerPlayer("TesterComp", null, "Hall", "Invisible");
+		ComputerPlayer testComputer = new ComputerPlayer("TesterComp", null, "315", "Invisible");
 		
 		Boolean noProblems = true; //Will switch to false if the suggestion is not reasonable
 
@@ -373,6 +373,12 @@ public class GameActionTests {
 		assertTrue(pipeCounts > 0);
 		assertTrue(mustardCounts > 0);
 		assertTrue(greenCounts > 0);
+		
+		System.out.println(knifeCounts);
+		System.out.println(pipeCounts);
+		System.out.println(greenCounts);
+		System.out.println(hallCounts);
+		
 		assertTrue(hallCounts == 50); //We assume that the computer is in the hall, so only the hall can be returned for the location card
 
 		assertTrue(noProblems == true); //Any random cards returned?

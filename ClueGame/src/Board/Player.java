@@ -13,7 +13,7 @@ public class Player {
 	private String color;
 	private String location; //The name of the room the player is in. Used to determine which room card must be suggested for a suggestion
 	              //NOTE: the room cells have a char for their room identification, we must convert the char to a string to update this!
-	private ArrayList<Card> playerCardList;
+	protected ArrayList<Card> playerCardList;
 	protected int index;
 	
 	protected ClueGame connectGame;

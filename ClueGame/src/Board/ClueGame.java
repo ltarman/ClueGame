@@ -213,12 +213,12 @@ public class ClueGame extends JFrame{
 			Card checkedCard = clueGameDeck.get(i); 
 			
 			if(checkedCard.getType() == Card.typeOfCard.WEAPON) { //Is it a weapon?
-				if(!seenWeapons.contains(checkedCard)) { //If the card is is the deck and is not in the list of seen weapons,
+				if(!seenWeapons.contains(checkedCard) && !computerSuggester.getCards().contains(checkedCard)) { //If the card is is the deck and is not in the list of seen weapons,
 					potentialWeapons.add(checkedCard);   // The card is added to the set of possible cards
 				} 
 			}
 			if(checkedCard.getType() == Card.typeOfCard.PERSON) { //Same as above, but for people.
-				if(!seenPeople.contains(checkedCard)) {
+				if(!seenPeople.contains(checkedCard) && !computerSuggester.getCards().contains(checkedCard)) {
 					potentialPeople.add(checkedCard);
 				}
 			}
@@ -233,6 +233,7 @@ public class ClueGame extends JFrame{
 		return possibleSolution;
 	}
 	
+	//checks the set against the actual solution
 	public Boolean makeAccusation(ArrayList<Card> accuseSet) {
 		Boolean goodSoFar = true;
 		for(int i = 0; i<accuseSet.size(); i++) {

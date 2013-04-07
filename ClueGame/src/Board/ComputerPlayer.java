@@ -12,6 +12,7 @@ import Board.BoardCell;
 public class ComputerPlayer extends Player{
 	
 	private char visited;
+	private boolean willAccuse = false;
 
 	public ComputerPlayer(String playerName, ArrayList<Card> cards, String location, String color) {
 		super(playerName, cards, location, color);
@@ -26,11 +27,27 @@ public class ComputerPlayer extends Player{
 			visited = board.getCellAt(index).getInitial();
 		}
 		board.repaint();
-		
-		
-		
+
 	}
 
+	//the computer will make a suggestion based on the see cards lists
+	public ArrayList<Card> makeSuggestion() {
+		ArrayList<Card> returnedCardList = new ArrayList<Card>();
+		if(!willAccuse){
+			returnedCardList = connectGame.computerSuggestion(this);
+			//add the three cards to the seen card lists
+			for(Card i:returnedCardList){connectGame.addToSeenCards(i);}
+		}else{
+			connectGame.makeAccusation(returnedCardList);
+			//display something + reset
+			willAccuse = false;
+		}
+		Card result = connectGame.testSuggestion(this, returnedCardList.get(0), returnedCardList.get(1), returnedCardList.get(2));
+		if(result==null){willAccuse = true;}
+		
+		
+		return returnedCardList;
+	}
 	
 	public int pickLocation(Set<Integer> possibleTargets, Board board) {
 		//Selects a random cell from the calculated list of targets
@@ -54,14 +71,15 @@ public class ComputerPlayer extends Player{
 	public char getVistited() {
 		return visited;
 	}
-
+	
+	//for testing only
 	public void setVisited(char vistited) {
 		this.visited = vistited;
 	}
-
-	public ArrayList<Card> makeSuggestion() {
-		ArrayList<Card> returnedCardList = new ArrayList<Card>();
-		return returnedCardList;
-	}
 	
+	public ArrayList<Card> getCards(){
+		return this.playerCardList;
+	}
+
+
 }

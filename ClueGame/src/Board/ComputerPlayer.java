@@ -16,6 +16,15 @@ public class ComputerPlayer extends Player{
 	public ComputerPlayer(String playerName, ArrayList<Card> cards, String location, String color) {
 		super(playerName, cards, location, color);
 	}
+	
+	@Override
+	public void playerTurn(int randomRollValue){
+		Board board = connectGame.getBoard();
+		board.calcTargets(index, randomRollValue);
+		this.index = pickLocation(board.getTargets(),board);
+		board.repaint();
+		
+	}
 
 	
 	public int pickLocation(Set<Integer> possibleTargets, Board board) {

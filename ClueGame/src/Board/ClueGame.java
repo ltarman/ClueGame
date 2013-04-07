@@ -106,6 +106,7 @@ public class ClueGame extends JFrame{
 		rollValue.setText(Integer.toString(randomRollValue));
 		turnDisplay.setText(playerList.get(currentPlayer).getName());
 
+		//playerTurn(randomRollValue) here?
 		
 		
 		currentPlayer++;
@@ -480,6 +481,10 @@ public class ClueGame extends JFrame{
 
 		return displayFullPanel;
 
+	}
+
+	public Board getBoard() {
+		return board;
 	}
 
 }

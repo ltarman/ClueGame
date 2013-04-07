@@ -14,9 +14,9 @@ public class Player {
 	private String location; //The name of the room the player is in. Used to determine which room card must be suggested for a suggestion
 	              //NOTE: the room cells have a char for their room identification, we must convert the char to a string to update this!
 	private ArrayList<Card> playerCardList;
-	private int index;
+	protected int index;
 	
-	private ClueGame connectGame;
+	protected ClueGame connectGame;
 	
 	public Player(String playerName, ArrayList<Card> cards, String location, String color) {
 		super();
@@ -31,7 +31,7 @@ public class Player {
 		connectGame = gameIn;
 	}
 	
-	public void playerTurn() {
+	public void playerTurn(int randomRollValue) {
 		
 	}
 	

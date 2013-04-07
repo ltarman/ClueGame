@@ -13,7 +13,7 @@ public class PathTest {
 	@Before
 	public void setup() {
 		board = new Board();
-		board.loadConfigFiles();
+		board.loadConfigFiles("legend.txt","board.csv");
 		board.calcAdjacencies();
 	}
 	

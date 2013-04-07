@@ -25,7 +25,7 @@ public class GameSetupTests {
 	public void setUp() throws FileNotFoundException{
 		board = new Board();
 		//testGame = new ClueGame();
-		board.loadConfigFiles();
+		board.loadConfigFiles("legend.txt","board.csv");
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class GameSetupTests {
 		//Testing for the correct names
 		assertEquals(human.getName(), "Miss Scarlet");
 		assertEquals(p1.getName(), "Colonel Mustard");
-		assertEquals(p2.getName(), "Professor Plum");
+		assertEquals(p2.getName(), "Mrs White");
 		
 		//Testing for the correct colors
 		
@@ -52,13 +52,13 @@ public class GameSetupTests {
 		
 		assertEquals(human.getColor(), "Red");
 		assertEquals(p1.getColor(), "Yellow");
-		assertEquals(p2.getColor(), "Purple");
+		assertEquals(p2.getColor(), "White");
 
 // !! Change location to whatever type it is and assertion statement !!
 		//Testing for the correct starting location
-		assertEquals(human.getLocation(), "humanStartLocation");
-		assertEquals(p1.getLocation(), "comp1StartLocation");
-		assertEquals(p2.getLocation(), "comp5StartLocation");
+		assertEquals(human.getLocation(), "150");
+		assertEquals(p1.getLocation(), "18");
+		assertEquals(p2.getLocation(), "349");
 	}
 	
 	@Test
@@ -122,9 +122,9 @@ public class GameSetupTests {
 		testDeck.add(testCardGreen); testDeck.add(testCardHall); testDeck.add(testCardKitchen);
 		
 		ArrayList<Card> emptyHand = new ArrayList<Card>();
-		Player testPlayerA = new Player("A", emptyHand, "Limbo", "NA" );
-		Player testPlayerB = new Player("B", emptyHand, "Limbo", "NA" );
-		Player testPlayerC = new Player("C", emptyHand, "Limbo", "NA" );
+		Player testPlayerA = new Player("A", emptyHand, "315", "NA" );
+		Player testPlayerB = new Player("B", emptyHand, "315", "NA" );
+		Player testPlayerC = new Player("C", emptyHand, "315", "NA" );
 		
 		ArrayList<Player> testplayerList = new ArrayList<Player>();
 		testplayerList.add(testPlayerA); testplayerList.add(testPlayerB); testplayerList.add(testPlayerC);

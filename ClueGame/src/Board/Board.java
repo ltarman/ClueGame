@@ -44,13 +44,13 @@ public class Board extends JPanel{
 		connectedGame = gameIn;
 	}
 
-	public void loadConfigFiles() {
-		// Given test config filenames
-		//String legend = "ClueLegend.txt";
-		//String board = "ClueLayout.csv";
-		// Default config filenames
+	public void loadConfigFiles(String legend, String board) {
+
+		/*
+		hardcoded names
 		String legend = "Legend.txt";
 		String board = "Board.csv";
+		*/
 		
 		// Run helper functions to load legend and board separately
 		try{

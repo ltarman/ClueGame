@@ -22,7 +22,9 @@ public class ComputerPlayer extends Player{
 		Board board = connectGame.getBoard();
 		board.startTargets(index, randomRollValue);
 		this.index = pickLocation(board.getTargets(),board);
-		visited = board.getCellAt(index).getInitial();
+		if(board.getCellAt(index).isRoom()){
+			visited = board.getCellAt(index).getInitial();
+		}
 		board.repaint();
 		
 		

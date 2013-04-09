@@ -20,6 +20,15 @@ public class Player {
 	
 	protected ClueGame connectGame;
 	
+	public Player(String playerName, String location, String color) {
+		super();
+		this.name = playerName;
+		this.location = location;
+		this.index = Integer.parseInt(location);
+		this.color = color;
+		playerCardList = new ArrayList<Card>();
+	}
+	
 	public Player(String playerName, ArrayList<Card> cards, String location, String color) {
 		super();
 		this.name = playerName;

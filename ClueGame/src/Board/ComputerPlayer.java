@@ -15,6 +15,12 @@ public class ComputerPlayer extends Player{
 	private boolean willAccuse;
 	
 
+	public ComputerPlayer(String playerName, String location, String color) {
+		super(playerName, location, color);
+		willAccuse = false;
+		solutionGuess = new ArrayList<Card>();
+	}
+	
 	public ComputerPlayer(String playerName, ArrayList<Card> cards, String location, String color) {
 		super(playerName, cards, location, color);
 		willAccuse = false;

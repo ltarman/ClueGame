@@ -109,6 +109,12 @@ public class ClueGame extends JFrame{
 			System.out.println("NOT PLAYERS TURN");
 		} else {
 			playersTurn = true;
+			System.out.println(playerList.get(0).getPlayerCardList().size());
+			System.out.println(playerList.get(1).getPlayerCardList().size());
+			System.out.println(playerList.get(2).getPlayerCardList().size());
+			System.out.println(playerList.get(3).getPlayerCardList().size());
+			System.out.println(playerList.get(4).getPlayerCardList().size());
+			System.out.println(playerList.get(5).getPlayerCardList().size());
 			System.out.println("PLAYERS TURN");
 		}
 	}
@@ -356,7 +362,6 @@ public class ClueGame extends JFrame{
 		ArrayList<String> playerNames = new ArrayList<String>();
 		ArrayList<String> initialPlayerLocations = new ArrayList<String>();
 		ArrayList<String> playerColors = new ArrayList<String>();
-		ArrayList<Card> emptyCardList = new ArrayList<Card>();
 		
 		int iteration = 0;
 		
@@ -366,9 +371,6 @@ public class ClueGame extends JFrame{
 			scanner = new Scanner(inFile);
 			while(scanner.hasNextLine()){
 				String[] lineOfData = scanner.nextLine().split(",");
-				//System.out.println(lineOfData[0]);
-				//System.out.println(lineOfData[1]);
-				//System.out.println(lineOfData[2]);
 				// Converts a row of data in the file to an array of strings
 				lineOfData[2] = lineOfData[2].trim();
 				playerNames.add(lineOfData[0]);
@@ -376,9 +378,9 @@ public class ClueGame extends JFrame{
 				playerColors.add(lineOfData[2]);
 				
 				if(playerNames.size() == 1) { //If only one player's worth of info has been added, then use it to make a human player.
-					playerList.add(new HumanPlayer(playerNames.get(0),emptyCardList, initialPlayerLocations.get(0), playerColors.get(0)));
+					playerList.add(new HumanPlayer(playerNames.get(0), initialPlayerLocations.get(0), playerColors.get(0)));
 				} else { //Otherwise, add a computer player
-					playerList.add(new ComputerPlayer(playerNames.get(iteration),emptyCardList, initialPlayerLocations.get(iteration), playerColors.get(iteration)));
+					playerList.add(new ComputerPlayer(playerNames.get(iteration), initialPlayerLocations.get(iteration), playerColors.get(iteration)));
 				}
 				playerList.get(iteration).connectToGame(this);
 				iteration++;

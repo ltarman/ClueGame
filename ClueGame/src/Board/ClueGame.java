@@ -523,5 +523,18 @@ public class ClueGame extends JFrame{
 	public Board getBoard() {
 		return board;
 	}
+	
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		ClueGame draw = new ClueGame();
+
+		draw.boardGuiInitalize();
+		
+		draw.setVisible(true);
+		draw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+
+	}
+	
+	
 
 }

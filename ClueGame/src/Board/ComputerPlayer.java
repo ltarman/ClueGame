@@ -76,10 +76,10 @@ public class ComputerPlayer extends Player{
 		connectGame.getPlayerList().get(connectGame.getPlayerList().lastIndexOf(solutionGuess.get(1).getName())).setIndex(this.index);
 		
 		if(guess == connectGame.getSolution()){
-			//display something like 'win' + reset,game over
+			AccuseScreen gameover= new AccuseScreen(guess,willAccuse,this);
 		}else{
 			willAccuse = false;
-			//display something like 'wrong', keep playing??
+			AccuseScreen gameover= new AccuseScreen(guess,willAccuse,this);
 		}
 		
 		

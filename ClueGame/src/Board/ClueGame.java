@@ -124,22 +124,21 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void nextFunction() {
-		Player player = playerList.get(currentPlayer);
 		Random randomGen = new Random();
-		
-		
+
 		guessValue.setText("");
 		responseValue.setText("");
 		randomRollValue = randomGen.nextInt(6) + 1;
 		rollValue.setText(Integer.toString(randomRollValue));
-		turnDisplay.setText(player.getName());
+		turnDisplay.setText(playerList.get(currentPlayer).getName());
 
-		player.playerTurn(randomRollValue);
+		playerList.get(currentPlayer).playerTurn(randomRollValue);
 		
 		//set the suggestion/response text, if one occurred to the box
-		guessValue.setText(player.printGuess());
-		responseValue.setText(player.result.getName());
-		
+		if(playerList.get(currentPlayer).showSuggestion){
+			guessValue.setText(playerList.get(currentPlayer).printGuess());
+			responseValue.setText(playerList.get(currentPlayer).result.getName());
+		}
 		currentPlayer++;
 		if(currentPlayer == playerList.size()) {
 			currentPlayer = 0;

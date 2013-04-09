@@ -41,6 +41,8 @@ public class ComputerPlayer extends Player{
 		board.startTargets(index, randomRollValue);
 		this.index = pickLocation(board.getTargets(),board);
 		
+		showSuggestion = false;		//unless the player is in a room, the past suggestion should not be shown
+		
 		//if the player lands in a room, it will make a suggestion
 		if(board.getCellAt(index).isRoom()){
 			visited = board.getCellAt(index).getInitial();
@@ -59,6 +61,9 @@ public class ComputerPlayer extends Player{
 		//test for possible accusation
 		result = connectGame.testSuggestion(this, guess.get(0), guess.get(1), guess.get(2));
 		if(result==null){willAccuse = true;}
+		else if(result!=null){
+			showSuggestion = true;
+		}
 		
 		return guess;
 	}

@@ -128,8 +128,8 @@ public class ClueGame extends JFrame{
 		Random randomGen = new Random();
 		
 		
-		guessValue.setText(null);
-		responseValue.setText(null);
+		guessValue.setText("");
+		responseValue.setText("");
 		randomRollValue = randomGen.nextInt(6) + 1;
 		rollValue.setText(Integer.toString(randomRollValue));
 		turnDisplay.setText(player.getName());

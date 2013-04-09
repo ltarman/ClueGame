@@ -15,6 +15,8 @@ public class Player {
 	              //NOTE: the room cells have a char for their room identification, we must convert the char to a string to update this!
 	protected ArrayList<Card> playerCardList;
 	protected int index;
+	protected ArrayList<Card> solutionGuess = new ArrayList<Card>();
+	protected Card result = new Card("",Card.typeOfCard.PERSON);
 	
 	protected ClueGame connectGame;
 	
@@ -111,7 +113,51 @@ public class Player {
 		}
 		return color;
 	}
+	
+	
 
+
+	//prints out the guess for the cards
+	public String printGuess(){
+		String guess = "";
+		if(!solutionGuess.isEmpty()){
+		guess = solutionGuess.get(0).getName() + ", " + solutionGuess.get(1).getName() + ", " + solutionGuess.get(2).getName();
+		return guess;
+		}
+		else{return guess;}
+	}
+	
+	//will return a string of the name of the current location
+	public String loactionName(){
+		String roomName = "";
+		char key = connectGame.getBoard().getCellAt(index).getInitial();
+		roomName = connectGame.getBoard().getRooms().get(key);
+		return roomName;
+	}
+	
+	public void humanSuggestion(String Player, String Weapon, Card C) {
+		Card selectedPlayer = new Card("BLAH", Card.typeOfCard.PERSON);
+		Card selectedWeapon = new Card("BLAH", Card.typeOfCard.WEAPON);
+		Card selectedRoom = new Card("BLAH", Card.typeOfCard.ROOM);
+		
+		for(int i = 0; i < 21; i++) {
+			if(connectGame.getFullCardList().get(i).getName().equals(Player)) {
+				selectedPlayer = connectGame.getFullCardList().get(i);
+				System.out.println("YAYAYAY " + Player);
+			}
+			if(connectGame.getFullCardList().get(i).getName().equals(Weapon)) {
+				selectedWeapon = connectGame.getFullCardList().get(i);
+				System.out.println("YAYAYAY " + Weapon);
+			}
+			if(connectGame.getFullCardList().get(i).getName().equals(C.getName())) {
+				selectedRoom = connectGame.getFullCardList().get(i);
+				System.out.println("YAYAYAY " + selectedRoom.getName());
+			}
+		}
+		
+		System.out.println(connectGame.testSuggestion(connectGame.getPlayerList().get(0), selectedPlayer,selectedWeapon, selectedRoom).getName());
+	}
+	
 	
 //getters and setters
 	public void giveCard(Card A) {
@@ -145,5 +191,7 @@ public class Player {
 	public ArrayList<Card> getPlayerCardList() {
 		return playerCardList;
 	}
+	
+
 }
 

@@ -13,7 +13,7 @@ public class ComputerPlayer extends Player{
 	
 	private char visited;
 	private boolean willAccuse;
-	private ArrayList<Card> solutionGuess;
+	
 
 	public ComputerPlayer(String playerName, String location, String color) {
 		super(playerName, location, color);
@@ -57,7 +57,7 @@ public class ComputerPlayer extends Player{
 		//add the three cards to the seen card lists
 		for(Card i:guess){connectGame.addToSeenCards(i);}
 		//test for possible accusation
-		Card result = connectGame.testSuggestion(this, guess.get(0), guess.get(1), guess.get(2));
+		result = connectGame.testSuggestion(this, guess.get(0), guess.get(1), guess.get(2));
 		if(result==null){willAccuse = true;}
 		
 		return guess;

@@ -6,7 +6,7 @@ import java.awt.Graphics;
 abstract public class BoardCell {
 	private int row;
 	private int column;
-	private char initial;
+	protected char initial;
 	
 	public char getInitial() {
 		return initial;

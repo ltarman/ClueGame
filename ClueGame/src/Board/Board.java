@@ -24,7 +24,7 @@ public class Board extends JPanel{
 	public DetectiveNotesDialog playerNotes;
 	public PlayerSuggestionDialog playerSuggestion;
 	public SplashScreen introScreen;
-	private ClueGame connectedGame;
+	public ClueGame connectedGame;
 	private Boolean showPlayerTargets;
 	
 	public Board() {
@@ -41,7 +41,7 @@ public class Board extends JPanel{
 		introScreen = new SplashScreen();
 		
 		playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
-		playerSuggestion = new PlayerSuggestionDialog();
+		//playerSuggestion = new PlayerSuggestionDialog();
 		
 		addMouseListener(new playerMouseListener());
 		
@@ -420,16 +420,20 @@ public class Board extends JPanel{
 				connectedGame.getPlayerList().get(0).setIndex(checkClickedLocation(event.getX(), event.getY()));
 				int currentPlayerIndex = connectedGame.getPlayerList().get(0).getIndex();
 				//if(cells.get(currentPlayerIndex).isRoom()) {
-					System.out.println("FFFS");
-					System.out.println("|" + cells.get(currentPlayerIndex)+ "|");
-					System.out.println("FFFS");
-					connectedGame.getPlayerList().get(0).setLocation(Character.toString(cells.get(currentPlayerIndex).getInitial()));
-					System.out.println(connectedGame.getPlayerList().get(0).getLocation());
-					if((connectedGame.getPlayerList().get(0).getLocation().equals(Character.toString(' '))) != true) {
-						
-						System.out.println("YEEE");
-						playerSuggestion.setVisible(true);
-					}
+				System.out.println("FFFS");
+				//System.out.println("|" + cells.get(currentPlayerIndex)+ "|");
+				//System.out.println("|" + connectedGame.getPlayerList().get(0).getLocation()+ "|");
+				System.out.println("FFFS");
+				connectedGame.getPlayerList().get(0).setLocation(Character.toString(cells.get(currentPlayerIndex).getInitial()));
+				System.out.println(connectedGame.getPlayerList().get(0).getLocation());
+				if((connectedGame.getPlayerList().get(0).getLocation().equals(Character.toString('W'))) != true) {
+					PlayerSuggestionDialog newSuggestion = new PlayerSuggestionDialog(new Card(
+							rooms.get(connectedGame.getPlayerList().get(0).getLocation().charAt(0)), Card.typeOfCard.ROOM), connectedGame.board);
+					//System.out.println(rooms.get('K'));
+					//System.out.println(connectedGame.getPlayerList().get(0).getLocation().charAt(0) +" YGFSF");
+					//System.out.println(rooms.get(connectedGame.getPlayerList().get(0).getLocation().charAt(0)));
+					newSuggestion.setVisible(true);
+				}
 				//}
 
 

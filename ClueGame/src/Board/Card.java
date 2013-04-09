@@ -5,7 +5,7 @@ public class Card {
 	public enum typeOfCard {PERSON, WEAPON, ROOM};
 	
 	private typeOfCard cardType; 
-	private String cardName;
+	private String cardName = "";
 	
 	public Card(String cardName, typeOfCard type) {
 		super();

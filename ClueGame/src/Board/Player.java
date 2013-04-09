@@ -11,7 +11,7 @@ public class Player {
 
 	private String name;
 	private String color;
-	private String location; //The name of the room the player is in. Used to determine which room card must be suggested for a suggestion
+	protected String location; //The name of the room the player is in. Used to determine which room card must be suggested for a suggestion
 	              //NOTE: the room cells have a char for their room identification, we must convert the char to a string to update this!
 	protected ArrayList<Card> playerCardList;
 	protected int index;
@@ -137,6 +137,29 @@ public class Player {
 		return roomName;
 	}
 	
+	public void humanSuggestion(String Player, String Weapon, Card C) {
+		Card selectedPlayer = new Card("BLAH", Card.typeOfCard.PERSON);
+		Card selectedWeapon = new Card("BLAH", Card.typeOfCard.WEAPON);
+		Card selectedRoom = new Card("BLAH", Card.typeOfCard.ROOM);
+		
+		for(int i = 0; i < 21; i++) {
+			if(connectGame.getFullCardList().get(i).getName().equals(Player)) {
+				selectedPlayer = connectGame.getFullCardList().get(i);
+				System.out.println("YAYAYAY " + Player);
+			}
+			if(connectGame.getFullCardList().get(i).getName().equals(Weapon)) {
+				selectedWeapon = connectGame.getFullCardList().get(i);
+				System.out.println("YAYAYAY " + Weapon);
+			}
+			if(connectGame.getFullCardList().get(i).getName().equals(C.getName())) {
+				selectedRoom = connectGame.getFullCardList().get(i);
+				System.out.println("YAYAYAY " + selectedRoom.getName());
+			}
+		}
+		
+		System.out.println(connectGame.testSuggestion(connectGame.getPlayerList().get(0), selectedPlayer,selectedWeapon, selectedRoom).getName());
+	}
+	
 	
 //getters and setters
 	public void giveCard(Card A) {
@@ -153,6 +176,10 @@ public class Player {
 	
 	public String getLocation(){
 		return location;
+	}
+	
+	public int getIndex() {
+		return index;
 	}
 	
 	public void setIndex(int intIn) {

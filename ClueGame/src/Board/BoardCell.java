@@ -6,10 +6,10 @@ import java.awt.Graphics;
 abstract public class BoardCell {
 	private int row;
 	private int column;
-	private char inital;
+	protected char initial;
 	
 	public char getInitial() {
-		return inital;
+		return initial;
 	}
 	
 	public BoardCell(int row, int col) {

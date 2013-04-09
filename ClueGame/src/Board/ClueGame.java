@@ -38,7 +38,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> seenPeople;
 	private ArrayList<Card> seenRooms;
 	
-	private Board board;
+	public Board board;
 	private int currentPlayer;
 	private int randomRollValue;
 	private Boolean playersTurn;
@@ -110,12 +110,6 @@ public class ClueGame extends JFrame{
 			System.out.println("NOT PLAYERS TURN");
 		} else {
 			playersTurn = true;
-			System.out.println(playerList.get(0).getPlayerCardList().size());
-			System.out.println(playerList.get(1).getPlayerCardList().size());
-			System.out.println(playerList.get(2).getPlayerCardList().size());
-			System.out.println(playerList.get(3).getPlayerCardList().size());
-			System.out.println(playerList.get(4).getPlayerCardList().size());
-			System.out.println(playerList.get(5).getPlayerCardList().size());
 			System.out.println("PLAYERS TURN");
 			customMessage = new CustomMessage("Miss Scarlet, it is your turn");
 		}
@@ -126,6 +120,7 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void nextFunction() {
+
 		Random randomGen = new Random();
 
 		guessValue.setText("");
@@ -137,6 +132,7 @@ public class ClueGame extends JFrame{
 		playerList.get(currentPlayer).playerTurn(randomRollValue);
 		
 		//set the suggestion/response text, if one occurred to the box
+
 		if(playerList.get(currentPlayer).showSuggestion){
 			guessValue.setText(playerList.get(currentPlayer).printGuess());
 			if(playerList.get(currentPlayer).result.getName()==""){
@@ -146,6 +142,7 @@ public class ClueGame extends JFrame{
 			}
 			
 		}
+
 		currentPlayer++;
 		if(currentPlayer == playerList.size()) {
 			currentPlayer = 0;
@@ -227,6 +224,7 @@ public class ClueGame extends JFrame{
 		}
 			
 		if(foundCards.size() == 0) {
+			System.out.println("DARN");
 			return new Card("",Card.typeOfCard.PERSON);
 		} else {
 			return foundCards.get(randomGenerator.nextInt(foundCards.size()));//chooses a random card from those that have been found

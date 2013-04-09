@@ -40,6 +40,8 @@ public class DetectiveNotesDialog extends JFrame{
 		weaponChecklist = createWeaponChecklist();
 		roomChecklist = createRoomChecklist();
 
+		
+		
 
 		JPanel fullPanel = new JPanel();
 		fullPanel.setLayout(new GridLayout(3,2));

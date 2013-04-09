@@ -20,6 +20,8 @@ public class Player {
 	
 	protected ClueGame connectGame;
 	
+	public boolean showSuggestion;
+	
 	public Player(String playerName, String location, String color) {
 		super();
 		this.name = playerName;

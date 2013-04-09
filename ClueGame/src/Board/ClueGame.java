@@ -120,10 +120,9 @@ public class ClueGame extends JFrame{
 	public void nextFunction() {
 
 		Random randomGen = new Random();
-		
-		
-		guessValue.setText(null);
-		responseValue.setText(null);
+
+		guessValue.setText("");
+		responseValue.setText("");
 		randomRollValue = randomGen.nextInt(6) + 1;
 		rollValue.setText(Integer.toString(randomRollValue));
 		turnDisplay.setText(playerList.get(currentPlayer).getName());
@@ -131,9 +130,17 @@ public class ClueGame extends JFrame{
 		playerList.get(currentPlayer).playerTurn(randomRollValue);
 		
 		//set the suggestion/response text, if one occurred to the box
-		guessValue.setText(playerList.get(currentPlayer).printGuess());
-		responseValue.setText(playerList.get(currentPlayer).result.getName());
-		
+
+		if(playerList.get(currentPlayer).showSuggestion){
+			guessValue.setText(playerList.get(currentPlayer).printGuess());
+			if(playerList.get(currentPlayer).result.getName()==""){
+				responseValue.setText("No new clue");
+			}else{
+				responseValue.setText(playerList.get(currentPlayer).result.getName());
+			}
+			
+		}
+
 		currentPlayer++;
 		if(currentPlayer == playerList.size()) {
 			currentPlayer = 0;
@@ -514,5 +521,18 @@ public class ClueGame extends JFrame{
 	public Board getBoard() {
 		return board;
 	}
+	
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		ClueGame draw = new ClueGame();
+
+		draw.boardGuiInitalize();
+		
+		draw.setVisible(true);
+		draw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+
+	}
+	
+	
 
 }

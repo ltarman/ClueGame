@@ -157,8 +157,16 @@ public class Player {
 			}
 		}
 		
-		System.out.println(connectGame.testSuggestion(connectGame.getPlayerList().get(0), selectedPlayer,selectedWeapon, selectedRoom).getName());
+		solutionGuess.clear();
+		solutionGuess.add(selectedPlayer);
+		solutionGuess.add(selectedWeapon);
+		solutionGuess.add(selectedRoom);
+		
+		result = connectGame.testSuggestion(connectGame.getPlayerList().get(0), selectedPlayer,selectedWeapon, selectedRoom);
+		showSuggestion=true;
+		connectGame.displayGuessInfo(0);
 	}
+	
 	
 	
 //getters and setters

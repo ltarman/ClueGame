@@ -131,15 +131,9 @@ public class ClueGame extends JFrame{
 		
 		//set the suggestion/response text, if one occurred to the box
 
-		if(playerList.get(currentPlayer).showSuggestion){
-			guessValue.setText(playerList.get(currentPlayer).printGuess());
-			if(playerList.get(currentPlayer).result.getName()==""){
-				responseValue.setText("No new clue");
-			}else{
-				responseValue.setText(playerList.get(currentPlayer).result.getName());
-			}
-			
-		}
+		displayGuessInfo(currentPlayer);
+		
+		System.out.println("Missed");
 
 		currentPlayer++;
 		if(currentPlayer == playerList.size()) {
@@ -156,6 +150,19 @@ public class ClueGame extends JFrame{
 			seenRooms.add(cardIn);
 		}
 	}
+	
+	public void displayGuessInfo(int playerNumber) {
+		if(playerList.get(playerNumber).showSuggestion){
+			guessValue.setText(playerList.get(playerNumber).printGuess());
+			if(playerList.get(playerNumber).result.getName()==""){
+				responseValue.setText("No new clue");
+			}else{
+				responseValue.setText(playerList.get(playerNumber).result.getName());
+			}
+
+		}
+	}
+	
 		
 	public ArrayList<Player> getPlayerList() {
 		return this.playerList;

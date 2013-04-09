@@ -24,11 +24,15 @@ public class ComputerPlayer extends Player{
 	@Override
 	public void playerTurn(int randomRollValue){
 		Board board = connectGame.getBoard();
+		
+		//if the previous suggestion was not disproved, the player will accuse
 		if(willAccuse){makeAccusation();}
 		
+		//dice roll and movement
 		board.startTargets(index, randomRollValue);
 		this.index = pickLocation(board.getTargets(),board);
 		
+		//if the player lands in a room, it will make a suggestion
 		if(board.getCellAt(index).isRoom()){
 			visited = board.getCellAt(index).getInitial();
 			solutionGuess = makeSuggestion();
@@ -52,6 +56,11 @@ public class ComputerPlayer extends Player{
 	
 	private void makeAccusation(){
 		connectGame.makeAccusation(solutionGuess);
+		
+		connectGame.getPlayerList().lastIndexOf(solutionGuess.get(1).getName());
+		
+		
+		
 		//display something + reset,game over
 		willAccuse = false;
 	}

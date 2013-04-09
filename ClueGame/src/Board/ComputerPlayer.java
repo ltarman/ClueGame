@@ -23,6 +23,9 @@ public class ComputerPlayer extends Player{
 	
 	@Override
 	public void playerTurn(int randomRollValue){
+		
+		this.connectGame.getBoard().setShowPlayerTargets(false);
+		
 		Board board = connectGame.getBoard();
 		
 		//if the previous suggestion was not disproved, the player will accuse

@@ -41,6 +41,7 @@ public class ClueGame extends JFrame{
 	private Board board;
 	private int currentPlayer;
 	private int randomRollValue;
+	private Boolean playersTurn;
 	
 	JTextField turnDisplay = new JTextField();
 	JTextField rollValue = new JTextField();
@@ -53,6 +54,7 @@ public class ClueGame extends JFrame{
 		clueGameDeck = new ArrayList<Card>();
 		clueGameFullDeck = new ArrayList<Card>();
 		currentPlayer = 0;
+		playersTurn = false;
 		loadCardList();
 		loadPlayerList();
 		dealCards();
@@ -99,6 +101,20 @@ public class ClueGame extends JFrame{
 		add(displayInfoPanels(),BorderLayout.SOUTH);
 		add(displayPlayerCards(),BorderLayout.EAST);
 		setSize(640,720);
+	}
+	
+	public void togglePlayerTurn() {
+		if(playersTurn == true) {
+			playersTurn = false;
+			System.out.println("NOT PLAYERS TURN");
+		} else {
+			playersTurn = true;
+			System.out.println("PLAYERS TURN");
+		}
+	}
+	
+	public Boolean getPlayersTurn() {
+		return playersTurn;
 	}
 	
 	public void nextFunction() {
@@ -473,7 +489,11 @@ public class ClueGame extends JFrame{
 		accuseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				nextFunction();
+				if(playersTurn != true) {
+					nextFunction();
+				} else {
+					System.out.println("It's your turn! You must move!");
+				}
 				
 			}
 

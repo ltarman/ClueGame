@@ -42,6 +42,7 @@ public class ClueGame extends JFrame{
 	private int currentPlayer;
 	private int randomRollValue;
 	private Boolean playersTurn;
+	private CustomMessage customMessage;
 	
 	JTextField turnDisplay = new JTextField();
 	JTextField rollValue = new JTextField();
@@ -116,6 +117,7 @@ public class ClueGame extends JFrame{
 			System.out.println(playerList.get(4).getPlayerCardList().size());
 			System.out.println(playerList.get(5).getPlayerCardList().size());
 			System.out.println("PLAYERS TURN");
+			customMessage = new CustomMessage("Miss Scarlet, it is your turn");
 		}
 	}
 	
@@ -507,6 +509,8 @@ public class ClueGame extends JFrame{
 					nextFunction();
 				} else {
 					System.out.println("It's your turn! You must move!");
+					customMessage = new CustomMessage("It's your turn! You must move!");
+					
 				}
 				
 			}

@@ -15,6 +15,8 @@ public class Player {
 	              //NOTE: the room cells have a char for their room identification, we must convert the char to a string to update this!
 	protected ArrayList<Card> playerCardList;
 	protected int index;
+	protected ArrayList<Card> solutionGuess = new ArrayList<Card>();
+	protected Card result = new Card("",Card.typeOfCard.PERSON);
 	
 	protected ClueGame connectGame;
 	
@@ -102,7 +104,28 @@ public class Player {
 		}
 		return color;
 	}
+	
+	
 
+
+	//prints out the guess for the cards
+	public String printGuess(){
+		String guess = "";
+		if(!solutionGuess.isEmpty()){
+		guess = solutionGuess.get(0).getName() + ", " + solutionGuess.get(1).getName() + ", " + solutionGuess.get(2).getName();
+		return guess;
+		}
+		else{return guess;}
+	}
+	
+	//will return a string of the name of the current location
+	public String loactionName(){
+		String roomName = "";
+		char key = connectGame.getBoard().getCellAt(index).getInitial();
+		roomName = connectGame.getBoard().getRooms().get(key);
+		return roomName;
+	}
+	
 	
 //getters and setters
 	public void giveCard(Card A) {
@@ -132,5 +155,7 @@ public class Player {
 	public ArrayList<Card> getPlayerCardList() {
 		return playerCardList;
 	}
+	
+
 }
 

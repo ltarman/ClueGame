@@ -118,13 +118,21 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void nextFunction() {
+		Player player = playerList.get(currentPlayer);
 		Random randomGen = new Random();
+		
+		
+		guessValue.setText(null);
+		responseValue.setText(null);
 		randomRollValue = randomGen.nextInt(6) + 1;
 		rollValue.setText(Integer.toString(randomRollValue));
-		turnDisplay.setText(playerList.get(currentPlayer).getName());
+		turnDisplay.setText(player.getName());
 
-		playerList.get(currentPlayer).playerTurn(randomRollValue);
+		player.playerTurn(randomRollValue);
 		
+		//set the suggestion/response text, if one occurred to the box
+		guessValue.setText(player.printGuess());
+		responseValue.setText(player.result.getName());
 		
 		currentPlayer++;
 		if(currentPlayer == playerList.size()) {
@@ -207,7 +215,7 @@ public class ClueGame extends JFrame{
 		}
 			
 		if(foundCards.size() == 0) {
-			return null;
+			return new Card("",Card.typeOfCard.PERSON);
 		} else {
 			return foundCards.get(randomGenerator.nextInt(foundCards.size()));//chooses a random card from those that have been found
 		}
@@ -225,8 +233,8 @@ public class ClueGame extends JFrame{
 		Random randomGenerator = new Random();
 		
 		
-		for(int i = 0; i < clueGameDeck.size(); i++) { //Iterates through the game's list of cards
-			Card checkedCard = clueGameDeck.get(i); 
+		for(int i = 0; i < clueGameFullDeck.size(); i++) { //Iterates through the game's list of cards
+			Card checkedCard = clueGameFullDeck.get(i); 
 			
 			if(checkedCard.getType() == Card.typeOfCard.WEAPON) { //Is it a weapon?
 				if(!seenWeapons.contains(checkedCard) && !computerSuggester.getCards().contains(checkedCard)) { //If the card is is the deck and is not in the list of seen weapons,
@@ -244,7 +252,7 @@ public class ClueGame extends JFrame{
 
 		//Creates a card that will be an exact duplicate of the card referring to the location of the room that the computer is currently in.
 		//Since the card is only used for the guess, it won't cause problems (but be careful with the output of this function).
-		possibleSolution.add(new Card(computerSuggester.getLocation(), Card.typeOfCard.ROOM)); 
+		possibleSolution.add(new Card(computerSuggester.loactionName(), Card.typeOfCard.ROOM)); 
 
 		return possibleSolution;
 	}

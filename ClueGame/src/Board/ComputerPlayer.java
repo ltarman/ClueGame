@@ -12,7 +12,8 @@ import Board.BoardCell;
 public class ComputerPlayer extends Player{
 	
 	private char visited;
-	private boolean willAccuse;
+	public boolean willAccuse;
+	private ArrayList<Card> guess = new ArrayList<Card>();
 	
 
 	public ComputerPlayer(String playerName, String location, String color) {
@@ -54,7 +55,7 @@ public class ComputerPlayer extends Player{
 
 	//the computer will make a suggestion based on the see cards lists
 	public ArrayList<Card> makeSuggestion() {
-		ArrayList<Card> guess = new ArrayList<Card>();
+		
 		guess = connectGame.computerSuggestion(this);
 		//add the three cards to the seen card lists
 		for(Card i:guess){connectGame.addToSeenCards(i);}
@@ -71,11 +72,17 @@ public class ComputerPlayer extends Player{
 	private void makeAccusation(){
 		connectGame.makeAccusation(solutionGuess);
 		
-		connectGame.getPlayerList().lastIndexOf(solutionGuess.get(1).getName());
+		//move the accused player on to the same spot as the accuser.this should be the same room as the accusation.  
+		connectGame.getPlayerList().get(connectGame.getPlayerList().lastIndexOf(solutionGuess.get(1).getName())).setIndex(this.index);
+		
+		if(guess == connectGame.getSolution()){
+			//display something like 'win' + reset,game over
+		}else{
+			willAccuse = false;
+			//display something like 'wrong', keep playing??
+		}
 		
 		
-		
-		//display something + reset,game over
 		willAccuse = false;
 	}
 	
@@ -110,6 +117,4 @@ public class ComputerPlayer extends Player{
 	public ArrayList<Card> getCards(){
 		return this.playerCardList;
 	}
-
-
 }

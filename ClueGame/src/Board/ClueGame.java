@@ -137,7 +137,12 @@ public class ClueGame extends JFrame{
 		//set the suggestion/response text, if one occurred to the box
 		if(playerList.get(currentPlayer).showSuggestion){
 			guessValue.setText(playerList.get(currentPlayer).printGuess());
-			responseValue.setText(playerList.get(currentPlayer).result.getName());
+			if(playerList.get(currentPlayer).result.getName()==""){
+				responseValue.setText("No new clue");
+			}else{
+				responseValue.setText(playerList.get(currentPlayer).result.getName());
+			}
+			
 		}
 		currentPlayer++;
 		if(currentPlayer == playerList.size()) {

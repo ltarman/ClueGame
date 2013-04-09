@@ -22,6 +22,7 @@ public class Board extends JPanel{
 	private Set<Integer> targets;
 	private boolean[] visited;
 	public DetectiveNotesDialog playerNotes;
+	public PlayerSuggestionDialog playerSuggestion;
 	public SplashScreen introScreen;
 	private ClueGame connectedGame;
 	private Boolean showPlayerTargets;
@@ -40,6 +41,8 @@ public class Board extends JPanel{
 		introScreen = new SplashScreen();
 		
 		playerNotes = new DetectiveNotesDialog(); //Pop-up for the detective notes
+		playerSuggestion = new PlayerSuggestionDialog();
+		
 		addMouseListener(new playerMouseListener());
 		
 	}
@@ -204,6 +207,10 @@ public class Board extends JPanel{
 
 	public int getNumColumns() {
 		return numColumns;
+	}
+	
+	public Map<Character,String> getMap() {
+		return rooms;
 	}
 
 	public BoardCell getCellAt(int index) {
@@ -411,14 +418,29 @@ public class Board extends JPanel{
 				}
 			} else if (connectedGame.getPlayersTurn() == true){
 				connectedGame.getPlayerList().get(0).setIndex(checkClickedLocation(event.getX(), event.getY()));
+				int currentPlayerIndex = connectedGame.getPlayerList().get(0).getIndex();
+				//if(cells.get(currentPlayerIndex).isRoom()) {
+					System.out.println("FFFS");
+					System.out.println("|" + cells.get(currentPlayerIndex)+ "|");
+					System.out.println("FFFS");
+					connectedGame.getPlayerList().get(0).setLocation(Character.toString(cells.get(currentPlayerIndex).getInitial()));
+					System.out.println(connectedGame.getPlayerList().get(0).getLocation());
+					if((connectedGame.getPlayerList().get(0).getLocation().equals(Character.toString(' '))) != true) {
+						
+						System.out.println("YEEE");
+						playerSuggestion.setVisible(true);
+					}
+				//}
+
+
 				connectedGame.togglePlayerTurn();
 			}
 			//System.out.println(checkClickedLocation(event.getX(), event.getY()) + "YEAH");
- 
+
 			//FUNCTIONS HERE
-			
+
 			repaint(); 
-			}
+		}
 
 		public void mouseEntered(MouseEvent arg0) {}
 

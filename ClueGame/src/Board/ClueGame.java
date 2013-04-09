@@ -38,7 +38,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> seenPeople;
 	private ArrayList<Card> seenRooms;
 	
-	private Board board;
+	public Board board;
 	private int currentPlayer;
 	private int randomRollValue;
 	private Boolean playersTurn;
@@ -109,12 +109,6 @@ public class ClueGame extends JFrame{
 			System.out.println("NOT PLAYERS TURN");
 		} else {
 			playersTurn = true;
-			System.out.println(playerList.get(0).getPlayerCardList().size());
-			System.out.println(playerList.get(1).getPlayerCardList().size());
-			System.out.println(playerList.get(2).getPlayerCardList().size());
-			System.out.println(playerList.get(3).getPlayerCardList().size());
-			System.out.println(playerList.get(4).getPlayerCardList().size());
-			System.out.println(playerList.get(5).getPlayerCardList().size());
 			System.out.println("PLAYERS TURN");
 		}
 	}
@@ -124,6 +118,8 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void nextFunction() {
+
+		
 		Random randomGen = new Random();
 		randomRollValue = randomGen.nextInt(6) + 1;
 		rollValue.setText(Integer.toString(randomRollValue));

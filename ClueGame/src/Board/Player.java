@@ -11,7 +11,7 @@ public class Player {
 
 	private String name;
 	private String color;
-	private String location; //The name of the room the player is in. Used to determine which room card must be suggested for a suggestion
+	protected String location; //The name of the room the player is in. Used to determine which room card must be suggested for a suggestion
 	              //NOTE: the room cells have a char for their room identification, we must convert the char to a string to update this!
 	protected ArrayList<Card> playerCardList;
 	protected int index;
@@ -128,6 +128,10 @@ public class Player {
 	
 	public String getLocation(){
 		return location;
+	}
+	
+	public int getIndex() {
+		return index;
 	}
 	
 	public void setIndex(int intIn) {

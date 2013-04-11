@@ -177,7 +177,9 @@ public class Player {
 	public void humanAccusation(String personName, String weaponName, String roomName) {
 		if(canMakeGuess == true) {
 			ArrayList<Card> accuseList = new ArrayList<Card>();
-			accuseList.ensureCapacity(3);
+			accuseList.ensureCapacity(6);
+			//System.out.println(connectGame.getFullCardList().size() + "SIZE");
+			
 			for(int i = 0; i < 21; i++) {
 				if(connectGame.getFullCardList().get(i).getName().equals(personName)) {
 					accuseList.add(0, connectGame.getFullCardList().get(i));
@@ -192,8 +194,15 @@ public class Player {
 					//System.out.println("YAYAYAY " + roomName);
 				}
 			}
+			
+			//System.out.println(accuseList.get(2));
+			//System.out.println(connectGame.roomIndexes.size());
+			//System.out.println(connectGame.roomIndexes.get(accuseList.get(2).getName())+"YEARGB");
+			int targetLocation = connectGame.roomIndexes.get(accuseList.get(2).getName());
+
 
 			
+
 
 			Boolean accuseResult = connectGame.makeAccusation(accuseList);
 
@@ -201,11 +210,17 @@ public class Player {
 			
 			AccuseScreen gameover= new AccuseScreen(accuseList,accuseResult,this);
 			
-			
+			for(int i = 0; i < connectGame.getPlayerList().size(); i++) {
+				//System.out.println("SENDINGPEOPLE");
+				if(accuseList.get(0).getName().equals(connectGame.getPlayerList().get(i).getName())) {
+					//System.out.println("SENDING " + connectGame.getPlayerList().get(i).getName() + " TO " + targetLocation);
+					connectGame.getPlayerList().get(i).setIndex(targetLocation);
+					connectGame.playerTurnOff();
+				}
+			}
 			
 			canMakeGuess = false;
 		} else {
-	
 			System.out.println("You have already made a guess! Wait until next turn.");
 			customMessage = new CustomMessage("You have already made a guess! Wait until next turn.");
 		}

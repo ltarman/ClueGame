@@ -134,6 +134,9 @@ public class ClueGame extends JFrame{
 			customMessage = new CustomMessage("Miss Scarlet, it is your turn");
 		}
 	}
+	public void playerTurnOff() {
+		playersTurn = false;
+	}
 	
 	public Boolean getPlayersTurn() {
 		return playersTurn;
@@ -361,11 +364,14 @@ public class ClueGame extends JFrame{
 					//System.out.println(item[1]);
 						//throw new BadConfigFormatException(errorType.INVALID_LEGEND);
 					//item[1] = item[1].trim();											// Remove any leading/trailing whitespace
+					
+					//System.out.println(Integer.parseInt(item[1]) + "SFHBGJHF");
 					roomIndexes.put(item[0],Integer.parseInt(item[1]));								// Add legend item to map
 				}
 				
 				for(int n = 0; n < 8; n++) {
-					System.out.println(roomIndexes.size());
+					//System.out.println(roomIndexes.size());
+					//System.out.println(roomIndexes.get("Library") + "VALUE IS");
 					
 				}
 				
@@ -620,6 +626,7 @@ public class ClueGame extends JFrame{
 		draw.setVisible(true);
 		draw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
+		/*
 		System.out.println("Kitchen:" + draw.getBoard().calcIndex(4, 2));
 		System.out.println("Bathroom:" + draw.getBoard().calcIndex(2, 8));
 		System.out.println("Dining Room:" + draw.getBoard().calcIndex(4, 14));
@@ -629,7 +636,7 @@ public class ClueGame extends JFrame{
 		System.out.println("Lobby:" + draw.getBoard().calcIndex(18, 13));
 		System.out.println("Bedroom:" + draw.getBoard().calcIndex(14, 22));
 		System.out.println("Library:" + draw.getBoard().calcIndex(11, 21));
-		
+		*/
 		
 
 	}

@@ -1,10 +1,9 @@
 Study
 Library
-Billiard Room
-Conservatory
+Bedroom
+Lobby
 Ballroom
 Kitchen
 Dining Room
-Hall
+Living Room
 Bathroom
-Lounge

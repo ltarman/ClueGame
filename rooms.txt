@@ -4,6 +4,7 @@ Billiard Room
 Conservatory
 Ballroom
 Kitchen
-Dining Room Lounge
+Dining Room
 Hall
+Bathroom
 Lounge

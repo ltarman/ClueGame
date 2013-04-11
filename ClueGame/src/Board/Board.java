@@ -420,10 +420,10 @@ public class Board extends JPanel{
 				connectedGame.getPlayerList().get(0).setIndex(checkClickedLocation(event.getX(), event.getY()));
 				int currentPlayerIndex = connectedGame.getPlayerList().get(0).getIndex();
 				//if(cells.get(currentPlayerIndex).isRoom()) {
-				System.out.println("FFFS");
+				//System.out.println("FFFS");
 				//System.out.println("|" + cells.get(currentPlayerIndex)+ "|");
 				//System.out.println("|" + connectedGame.getPlayerList().get(0).getLocation()+ "|");
-				System.out.println("FFFS");
+				//System.out.println("FFFS");
 				connectedGame.getPlayerList().get(0).setLocation(Character.toString(cells.get(currentPlayerIndex).getInitial()));
 				System.out.println(connectedGame.getPlayerList().get(0).getLocation());
 				if((connectedGame.getPlayerList().get(0).getLocation().equals(Character.toString('W'))) != true) {

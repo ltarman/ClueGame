@@ -42,6 +42,7 @@ public class ClueGame extends JFrame{
 	private int currentPlayer;
 	private int randomRollValue;
 	private Boolean playersTurn;
+	private PlayerAccuseDialog accuseDialog;
 	
 	JTextField turnDisplay = new JTextField();
 	JTextField rollValue = new JTextField();
@@ -62,9 +63,12 @@ public class ClueGame extends JFrame{
 		seenPeople = new ArrayList<Card>();
 		seenRooms = new ArrayList<Card>();
 		
+		accuseDialog = new PlayerAccuseDialog(this);
+		accuseDialog.setVisible(false);
+		
 		setTitle("Clue Board");
 		
-		System.out.println("con");
+		//System.out.println("con");
 		
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -88,7 +92,7 @@ public class ClueGame extends JFrame{
 	public void boardGuiInitalize(){
 		//added so I can draw the board
 
-		System.out.println("init");
+		//System.out.println("init");
 		
 		board = new Board();
 		board.connectToGame(this);
@@ -127,13 +131,17 @@ public class ClueGame extends JFrame{
 		rollValue.setText(Integer.toString(randomRollValue));
 		turnDisplay.setText(playerList.get(currentPlayer).getName());
 
+		System.out.println(playerList.get(currentPlayer).getName());
+		//System.out.println((playerList.get(currentPlayer).getPlayerCardList().size()));
+		
+		
 		playerList.get(currentPlayer).playerTurn(randomRollValue);
 		
 		//set the suggestion/response text, if one occurred to the box
 
 		displayGuessInfo(currentPlayer);
 		
-		System.out.println("Missed");
+		//System.out.println("Missed");
 
 		currentPlayer++;
 		if(currentPlayer == playerList.size()) {
@@ -142,6 +150,8 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void addToSeenCards(Card cardIn) {
+		//System.out.println("Adding to seen cards: " + cardIn.getName());
+		
 		if(cardIn.getType() == Card.typeOfCard.WEAPON){ 
 			seenWeapons.add(cardIn);
 		} else if (cardIn.getType() == Card.typeOfCard.PERSON) {
@@ -229,7 +239,7 @@ public class ClueGame extends JFrame{
 		}
 			
 		if(foundCards.size() == 0) {
-			System.out.println("DARN");
+			//System.out.println("DARN");
 			return new Card("",Card.typeOfCard.PERSON);
 		} else {
 			return foundCards.get(randomGenerator.nextInt(foundCards.size()));//chooses a random card from those that have been found
@@ -242,7 +252,11 @@ public class ClueGame extends JFrame{
 		//Lists for possible cards (the room is restricted to the current location of the computer)
 		ArrayList<Card> potentialWeapons = new ArrayList<Card>();
 		ArrayList<Card> potentialPeople = new ArrayList<Card>();
-
+		
+		
+		//System.out.println("Beginning comp. suggestion " + computerSuggester.getName());
+		
+		
 		
 		ArrayList<Card> possibleSolution = new ArrayList<Card>(); //Used to make the guessed suggestion
 		Random randomGenerator = new Random();
@@ -254,14 +268,18 @@ public class ClueGame extends JFrame{
 			if(checkedCard.getType() == Card.typeOfCard.WEAPON) { //Is it a weapon?
 				if(!seenWeapons.contains(checkedCard) && !computerSuggester.getCards().contains(checkedCard)) { //If the card is is the deck and is not in the list of seen weapons,
 					potentialWeapons.add(checkedCard);   // The card is added to the set of possible cards
+					//System.out.println("Added card: " + checkedCard.getName());
 				} 
 			}
 			if(checkedCard.getType() == Card.typeOfCard.PERSON) { //Same as above, but for people.
 				if(!seenPeople.contains(checkedCard) && !computerSuggester.getCards().contains(checkedCard)) {
 					potentialPeople.add(checkedCard);
+					//System.out.println("Added card: " + checkedCard.getName());
 				}
 			}
 		}
+		//System.out.println(potentialWeapons.size());
+		//System.out.println(potentialPeople.size());
 		possibleSolution.add(potentialWeapons.get(randomGenerator.nextInt(potentialWeapons.size()))); //Chooses a random weapon to guess
 		possibleSolution.add(potentialPeople.get(randomGenerator.nextInt(potentialPeople.size()))); //And a person
 
@@ -305,6 +323,7 @@ public class ClueGame extends JFrame{
 				while(files[i].hasNextLine()){
 					line = files[i].nextLine();
 					cards.add(line);
+					System.out.println("New card name is: "+ line);
 				}
 				stacks.add(cards);
 				/*
@@ -360,7 +379,9 @@ public class ClueGame extends JFrame{
 		
 		//loads the rooms into the deck
 		for(int i=0; i<roomsList.size();i++){
+			
 			Card tempCard = new Card(roomsList.get(i),Card.typeOfCard.ROOM);
+			System.out.println("New room card name is: "+ tempCard.getName());
 			clueGameDeck.add(tempCard);
 			clueGameFullDeck.add(tempCard);
 		}
@@ -479,11 +500,11 @@ public class ClueGame extends JFrame{
 		
 		rollValue.setEnabled(false);
 		
-		JLabel guessLabel = new JLabel("Suggested cards:");
+		JLabel guessLabel = new JLabel("Recently suggested cards:");
 		
 		guessValue.setEnabled(false);
 		
-		JLabel resultlabel = new JLabel("Suggestion result");
+		JLabel resultlabel = new JLabel("Recent suggestion result:");
 		
 		responseValue.setEnabled(false);
 		
@@ -501,30 +522,46 @@ public class ClueGame extends JFrame{
 		displayCenterPanel.add(resultlabel);
 		displayCenterPanel.add(responseValue);
 
-		JButton nextButton = new JButton("Make Accusation");
-		//nextButton.addActionListener(new ActionListener());
-
-		JButton accuseButton = new JButton("Next Player");
-		accuseButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
-				if(playersTurn != true) {
-					nextFunction();
+		final JButton nextButton = new JButton("Next Player");
+		final JButton accuseButton = new JButton("Make Accusation!");
+		
+		final class ButtonListener implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == nextButton) {
+					//System.out.println("Next button");
+					if(playersTurn != true) {
+						nextFunction();
+					} else {
+						System.out.println("It's your turn! You must move!");
+					}
 				} else {
-					System.out.println("It's your turn! You must move!");
+					if(playersTurn == true) {
+						callPlayerAccuse();
+					} else {
+						System.out.println("It's not your turn! You must wait!");
+					}
 				}
-				
 			}
+		}
+		
 
-		});
+		ButtonListener listener = new ButtonListener();
+		nextButton.addActionListener(listener);
+		accuseButton.addActionListener(listener);
 
-		displayFullPanel.add(nextButton);
-		displayFullPanel.add(displayCenterPanel);
+
 		displayFullPanel.add(accuseButton);
+		displayFullPanel.add(displayCenterPanel);
+		displayFullPanel.add(nextButton);
 		return displayFullPanel;
-
 	}
-
+	
+	private void callPlayerAccuse() {
+		accuseDialog.setVisible(true);
+		
+		
+	}
+	
 	public Board getBoard() {
 		return board;
 	}

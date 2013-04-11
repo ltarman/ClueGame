@@ -18,6 +18,8 @@ public class Player {
 	protected ArrayList<Card> solutionGuess = new ArrayList<Card>();
 	protected Card result = new Card("",Card.typeOfCard.PERSON);
 	
+	Boolean canMakeGuess; //Refreshes when a player moves. Prevents more than one accusation in a around
+	
 	protected ClueGame connectGame;
 	
 	public boolean showSuggestion;
@@ -29,6 +31,7 @@ public class Player {
 		this.index = Integer.parseInt(location);
 		this.color = color;
 		playerCardList = new ArrayList<Card>();
+		canMakeGuess = true;
 	}
 	
 	public Player(String playerName, ArrayList<Card> cards, String location, String color) {
@@ -142,18 +145,20 @@ public class Player {
 		Card selectedWeapon = new Card("BLAH", Card.typeOfCard.WEAPON);
 		Card selectedRoom = new Card("BLAH", Card.typeOfCard.ROOM);
 		
+		System.out.println("Room card name is: " + C.getName());
+		
 		for(int i = 0; i < 21; i++) {
 			if(connectGame.getFullCardList().get(i).getName().equals(Player)) {
 				selectedPlayer = connectGame.getFullCardList().get(i);
-				System.out.println("YAYAYAY " + Player);
+				//System.out.println("YAYAYAY " + Player);
 			}
 			if(connectGame.getFullCardList().get(i).getName().equals(Weapon)) {
 				selectedWeapon = connectGame.getFullCardList().get(i);
-				System.out.println("YAYAYAY " + Weapon);
+				//System.out.println("YAYAYAY " + Weapon);
 			}
 			if(connectGame.getFullCardList().get(i).getName().equals(C.getName())) {
 				selectedRoom = connectGame.getFullCardList().get(i);
-				System.out.println("YAYAYAY " + selectedRoom.getName());
+				//System.out.println("YAYAYAY " + selectedRoom.getName());
 			}
 		}
 		
@@ -167,6 +172,37 @@ public class Player {
 		connectGame.displayGuessInfo(0);
 	}
 	
+	public void humanAccusation(String personName, String weaponName, String roomName) {
+		if(canMakeGuess == true) {
+			ArrayList<Card> accuseList = new ArrayList<Card>();
+			for(int i = 0; i < 21; i++) {
+				if(connectGame.getFullCardList().get(i).getName().equals(personName)) {
+					accuseList.add(connectGame.getFullCardList().get(i));
+					//System.out.println("YAYAYAY " + personName);
+				}
+				if(connectGame.getFullCardList().get(i).getName().equals(weaponName)) {
+					accuseList.add(connectGame.getFullCardList().get(i));
+					//System.out.println("YAYAYAY " + weaponName);
+				}
+				if(connectGame.getFullCardList().get(i).getName().equals(roomName)) {
+					accuseList.add(connectGame.getFullCardList().get(i));
+					//System.out.println("YAYAYAY " + roomName);
+				}
+			}
+
+
+
+			Boolean accuseResult = connectGame.makeAccusation(accuseList);
+
+			System.out.println("Your accuation is: " + accuseResult + "!!!");
+			canMakeGuess = false;
+		} else {
+			System.out.println("You have already made a guess! Wait until next turn.");
+		}
+
+
+	}
+
 	
 	
 //getters and setters
@@ -192,6 +228,8 @@ public class Player {
 	
 	public void setIndex(int intIn) {
 		index = intIn;
+		System.out.println("Moved player");
+		canMakeGuess = true;
 	}
 	
 	public void setLocation(String newLocation){ //FOR TESTING ONLY!!!

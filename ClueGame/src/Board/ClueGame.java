@@ -40,7 +40,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> seenPeople;
 	private ArrayList<Card> seenRooms;
 	
-	public Board board;;
+	public Board board;
 	private int currentPlayer;
 	private int randomRollValue;
 	private Boolean playersTurn;
@@ -93,7 +93,7 @@ public class ClueGame extends JFrame{
 	public ClueGame(ArrayList<Player> playerListIn, ArrayList<Card> cardListIn) { //Used for testing
 		playerList = playerListIn;
 		clueGameDeck = cardListIn;
-		clueGameFullDeck = new ArrayList<Card>();
+		clueGameFullDeck = cardListIn;
 		seenWeapons = new ArrayList<Card>();
 		seenPeople = new ArrayList<Card>();
 		seenRooms = new ArrayList<Card>();
@@ -277,6 +277,7 @@ public class ClueGame extends JFrame{
 		
 		for(int i = 0; i < clueGameFullDeck.size(); i++) { //Iterates through the game's list of cards
 			Card checkedCard = clueGameFullDeck.get(i); 
+
 			if(checkedCard.getType() == Card.typeOfCard.WEAPON) { //Is it a weapon?
 				if(!seenWeapons.contains(checkedCard) && !computerSuggester.getCards().contains(checkedCard)) { //If the card is is the deck and is not in the list of seen weapons,
 					potentialWeapons.add(checkedCard);   // The card is added to the set of possible cards
@@ -573,12 +574,14 @@ public class ClueGame extends JFrame{
 						nextFunction();
 					} else {
 						System.out.println("It's your turn! You must move!");
+						customMessage = new CustomMessage("It's your turn! You must move!");
 					}
 				} else {
 					if(playersTurn == true) {
 						callPlayerAccuse();
 					} else {
 						System.out.println("It's not your turn! You must wait!");
+						customMessage = new CustomMessage("It's not your turn! You must wait!");
 					}
 
 				}
@@ -616,6 +619,18 @@ public class ClueGame extends JFrame{
 		
 		draw.setVisible(true);
 		draw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		System.out.println("Kitchen:" + draw.getBoard().calcIndex(4, 2));
+		System.out.println("Bathroom:" + draw.getBoard().calcIndex(2, 8));
+		System.out.println("Dining Room:" + draw.getBoard().calcIndex(4, 14));
+		System.out.println("Study:" + draw.getBoard().calcIndex(2, 19));
+		System.out.println("Ballroom:" + draw.getBoard().calcIndex(12, 6));
+		System.out.println("Living Room:" + draw.getBoard().calcIndex(20, 3));
+		System.out.println("Lobby:" + draw.getBoard().calcIndex(18, 13));
+		System.out.println("Bedroom:" + draw.getBoard().calcIndex(14, 22));
+		System.out.println("Library:" + draw.getBoard().calcIndex(11, 21));
+		
+		
 
 	}
 

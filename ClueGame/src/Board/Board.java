@@ -26,6 +26,7 @@ public class Board extends JPanel{
 	public SplashScreen introScreen;
 	public ClueGame connectedGame;
 	private Boolean showPlayerTargets;
+	private CustomMessage customMessage;
 	
 	public Board() {
 		this.cells = new ArrayList<BoardCell>();
@@ -413,8 +414,10 @@ public class Board extends JPanel{
 			if(checkClickedLocation(event.getX(), event.getY()) == -1) {
 				if (connectedGame.getPlayersTurn()==true) {
 					System.out.println("Click on a cyan colored box to move to it.");
+					customMessage = new CustomMessage("Click on a cyan colored box to move to it.");
 				} else {
 					System.out.println("Its not your turn! Press next player to advance.");
+					customMessage = new CustomMessage("Its not your turn! Press next player to advance.");
 				}
 			} else if (connectedGame.getPlayersTurn() == true){
 				connectedGame.getPlayerList().get(0).setIndex(checkClickedLocation(event.getX(), event.getY()));

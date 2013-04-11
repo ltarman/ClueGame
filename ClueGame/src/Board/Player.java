@@ -175,28 +175,35 @@ public class Player {
 	public void humanAccusation(String personName, String weaponName, String roomName) {
 		if(canMakeGuess == true) {
 			ArrayList<Card> accuseList = new ArrayList<Card>();
+			accuseList.ensureCapacity(3);
 			for(int i = 0; i < 21; i++) {
 				if(connectGame.getFullCardList().get(i).getName().equals(personName)) {
-					accuseList.add(connectGame.getFullCardList().get(i));
+					accuseList.add(0, connectGame.getFullCardList().get(i));
 					//System.out.println("YAYAYAY " + personName);
 				}
 				if(connectGame.getFullCardList().get(i).getName().equals(weaponName)) {
-					accuseList.add(connectGame.getFullCardList().get(i));
+					accuseList.add(1, connectGame.getFullCardList().get(i));
 					//System.out.println("YAYAYAY " + weaponName);
 				}
 				if(connectGame.getFullCardList().get(i).getName().equals(roomName)) {
-					accuseList.add(connectGame.getFullCardList().get(i));
+					accuseList.add( 2, connectGame.getFullCardList().get(i));
 					//System.out.println("YAYAYAY " + roomName);
 				}
 			}
 
-
+			
 
 			Boolean accuseResult = connectGame.makeAccusation(accuseList);
 
 			System.out.println("Your accuation is: " + accuseResult + "!!!");
+			
+			AccuseScreen gameover= new AccuseScreen(accuseList,accuseResult,this);
+			
+			
+			
 			canMakeGuess = false;
 		} else {
+	
 			System.out.println("You have already made a guess! Wait until next turn.");
 		}
 

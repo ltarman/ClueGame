@@ -1,0 +1,9 @@
+Study,69
+Library,296
+Bedroom,372
+Lobby,463
+Ballroom,306
+Kitchen,102
+Dining Room,114
+Bathroom,58
+Living Room,503

@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -43,6 +45,8 @@ public class ClueGame extends JFrame{
 	private int randomRollValue;
 	private Boolean playersTurn;
 
+	public HashMap<String, Integer> roomIndexes;
+	
 	private CustomMessage customMessage;
 
 	private PlayerAccuseDialog accuseDialog;
@@ -60,6 +64,7 @@ public class ClueGame extends JFrame{
 		clueGameFullDeck = new ArrayList<Card>();
 		currentPlayer = 0;
 		playersTurn = false;
+		roomIndexes = new HashMap<String, Integer>();
 		loadCardList();
 		loadPlayerList();
 		dealCards();
@@ -69,6 +74,8 @@ public class ClueGame extends JFrame{
 		
 		accuseDialog = new PlayerAccuseDialog(this);
 		accuseDialog.setVisible(false);
+		
+		
 		
 		setTitle("Clue Board");
 		
@@ -263,19 +270,13 @@ public class ClueGame extends JFrame{
 		//Lists for possible cards (the room is restricted to the current location of the computer)
 		ArrayList<Card> potentialWeapons = new ArrayList<Card>();
 		ArrayList<Card> potentialPeople = new ArrayList<Card>();
-		
-		
-		//System.out.println("Beginning comp. suggestion " + computerSuggester.getName());
-		
-		
-		
+
 		ArrayList<Card> possibleSolution = new ArrayList<Card>(); //Used to make the guessed suggestion
 		Random randomGenerator = new Random();
 		
 		
 		for(int i = 0; i < clueGameFullDeck.size(); i++) { //Iterates through the game's list of cards
 			Card checkedCard = clueGameFullDeck.get(i); 
-			
 			if(checkedCard.getType() == Card.typeOfCard.WEAPON) { //Is it a weapon?
 				if(!seenWeapons.contains(checkedCard) && !computerSuggester.getCards().contains(checkedCard)) { //If the card is is the deck and is not in the list of seen weapons,
 					potentialWeapons.add(checkedCard);   // The card is added to the set of possible cards
@@ -289,8 +290,7 @@ public class ClueGame extends JFrame{
 				}
 			}
 		}
-		//System.out.println(potentialWeapons.size());
-		//System.out.println(potentialPeople.size());
+
 		possibleSolution.add(potentialWeapons.get(randomGenerator.nextInt(potentialWeapons.size()))); //Chooses a random weapon to guess
 		possibleSolution.add(potentialPeople.get(randomGenerator.nextInt(potentialPeople.size()))); //And a person
 
@@ -321,8 +321,11 @@ public class ClueGame extends JFrame{
 		Scanner weaponsFile = readFile("weapons.txt");
 		Scanner roomsFile = readFile("rooms.txt");
 		
+		
+		
 		//creates an array of files to iterate through with a for loop
 		Scanner[] files = {peopleFile,weaponsFile,roomsFile};
+		
 		//Creates a linkedList of Lists to place the lists of people and ect into
 		LinkedList<LinkedList<String>> stacks = new LinkedList<LinkedList<String>>();
 		for(int i=0; i < 3; i++){
@@ -332,9 +335,10 @@ public class ClueGame extends JFrame{
 			//try{  
 				LinkedList<String> cards = new LinkedList<String>();
 				while(files[i].hasNextLine()){
+					
 					line = files[i].nextLine();
 					cards.add(line);
-					System.out.println("New card name is: "+ line);
+					//System.out.println("New card name is: "+ line);
 				}
 				stacks.add(cards);
 				/*
@@ -342,6 +346,30 @@ public class ClueGame extends JFrame{
 				System.out.println("Bad file format for " + files[i]);
 			}
 			*/
+				
+				Scanner roomIndex = readFile("roomIndex.txt");
+				
+				while(roomIndex.hasNextLine()){
+					String[] item = roomIndex.nextLine().split(",");						// Converts row to string array
+					if(item.length != 2) {					// Throw exception is string array does not have exactly 2 items
+						//System.out.println("PROBKLEM" + item.length);
+						
+					}
+					
+					//System.out.println(item[0]);
+					//System.out.println(item[1]);
+						//throw new BadConfigFormatException(errorType.INVALID_LEGEND);
+					//item[1] = item[1].trim();											// Remove any leading/trailing whitespace
+					roomIndexes.put(item[0],Integer.parseInt(item[1]));								// Add legend item to map
+				}
+				
+				for(int n = 0; n < 8; n++) {
+					System.out.println(roomIndexes.size());
+					
+				}
+				
+				
+				
 			
 		}
 		//Lists of variable strings for each of the three categories
@@ -392,7 +420,7 @@ public class ClueGame extends JFrame{
 		for(int i=0; i<roomsList.size();i++){
 			
 			Card tempCard = new Card(roomsList.get(i),Card.typeOfCard.ROOM);
-			System.out.println("New room card name is: "+ tempCard.getName());
+			//System.out.println("New room card name is: "+ tempCard.getName());
 			clueGameDeck.add(tempCard);
 			clueGameFullDeck.add(tempCard);
 		}

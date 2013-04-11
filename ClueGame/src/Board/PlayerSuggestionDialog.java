@@ -22,20 +22,15 @@ public class PlayerSuggestionDialog extends JFrame{
 	public JTextField currentRoom;
 	private Board connectedBoard;
 	private String personName;
-	private String weaponName;
-	
+	private String weaponName;	
 	private notesDialog dialog;
 
-	public PlayerSuggestionDialog(Card cardIn, Board boardIn) { 
-		
-		dialog = new notesDialog(cardIn, boardIn);
-
-		
+	public PlayerSuggestionDialog(Card cardIn, Board boardIn) { 	
+		dialog = new notesDialog(cardIn, boardIn);		
 	}
 
 	public class notesDialog extends JDialog{ //Necessary to have the panel be a pop-up
 		public notesDialog(Card cardIn, Board boardIn) {
-
 			connectedBoard = boardIn;
 			createLayout(cardIn);
 		}
@@ -60,13 +55,9 @@ public class PlayerSuggestionDialog extends JFrame{
 		acceptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-
 				personName = personList.getSelectedItem().toString();
 				weaponName = weaponList.getSelectedItem().toString();
-
 				connectedBoard.connectedGame.getPlayerList().get(0).humanSuggestion(personName, weaponName, locationCard);
-
-				//System.out.println("GUESS");
 				dispose();
 				
 			}
@@ -79,7 +70,6 @@ public class PlayerSuggestionDialog extends JFrame{
 				System.out.println("You MUST make a guess.");
 				dialog.dispose();
 			}
-
 		});
 		
 

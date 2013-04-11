@@ -42,11 +42,11 @@ public class ClueGame extends JFrame{
 	private int currentPlayer;
 	private int randomRollValue;
 	private Boolean playersTurn;
-<<<<<<< HEAD
+
 	private CustomMessage customMessage;
-=======
+
 	private PlayerAccuseDialog accuseDialog;
->>>>>>> Ryan_Wednesday
+
 	
 	JTextField turnDisplay = new JTextField();
 	JTextField rollValue = new JTextField();
@@ -547,17 +547,12 @@ public class ClueGame extends JFrame{
 						System.out.println("It's your turn! You must move!");
 					}
 				} else {
-<<<<<<< HEAD
-					System.out.println("It's your turn! You must move!");
-					customMessage = new CustomMessage("It's your turn! You must move!");
-					
-=======
 					if(playersTurn == true) {
 						callPlayerAccuse();
 					} else {
 						System.out.println("It's not your turn! You must wait!");
 					}
->>>>>>> Ryan_Wednesday
+
 				}
 			}
 		}

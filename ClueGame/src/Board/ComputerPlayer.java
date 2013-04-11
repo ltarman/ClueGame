@@ -73,8 +73,25 @@ public class ComputerPlayer extends Player{
 	private void makeAccusation(){
 		connectGame.makeAccusation(solutionGuess);
 		
-		//move the accused player on to the same spot as the accuser.this should be the same room as the accusation.  
-		connectGame.getPlayerList().get(connectGame.getPlayerList().lastIndexOf(solutionGuess.get(1).getName())).setIndex(this.index);
+		String temp = "";
+		ArrayList<Card> temp2 = new ArrayList<Card>():
+		
+		Player accused = new Player(temp,temp2,temp,temp);
+		Card accusedRoom;
+		int roomIndex = 0;
+		
+		for(int i = 0; i<solutionGuess.size();i++){
+			if(solutionGuess.get(i).getType() == Card.typeOfCard.PERSON){
+					accused = connectGame.getPlayerList().get(i);
+			}else if(solutionGuess.get(i).getType() == Card.typeOfCard.ROOM){
+				roomIndex = connectGame.roomIndexes.get(connectGame.getPlayerList().lastIndexOf(solutionGuess.get(1).getName()));
+			}
+		}
+		
+		accused.setIndex(roomIndex);
+				
+		
+		
 		
 		if(guess == connectGame.getSolution()){
 			AccuseScreen gameover= new AccuseScreen(guess,willAccuse,this);

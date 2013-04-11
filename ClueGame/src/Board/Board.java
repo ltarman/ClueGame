@@ -26,6 +26,7 @@ public class Board extends JPanel{
 	public SplashScreen introScreen;
 	public ClueGame connectedGame;
 	private Boolean showPlayerTargets;
+	private CustomMessage customMessage;
 	
 	public Board() {
 		this.cells = new ArrayList<BoardCell>();

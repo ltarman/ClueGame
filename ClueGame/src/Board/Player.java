@@ -20,6 +20,8 @@ public class Player {
 	
 	Boolean canMakeGuess; //Refreshes when a player moves. Prevents more than one accusation in a around
 	
+	private CustomMessage customMessage;
+	
 	protected ClueGame connectGame;
 	
 	public boolean showSuggestion;
@@ -198,6 +200,7 @@ public class Player {
 			canMakeGuess = false;
 		} else {
 			System.out.println("You have already made a guess! Wait until next turn.");
+			customMessage = new CustomMessage("You have already made a guess! Wait until next turn.");
 		}
 
 

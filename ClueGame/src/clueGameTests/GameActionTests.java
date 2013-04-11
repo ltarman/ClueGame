@@ -305,106 +305,97 @@ public class GameActionTests {
 	public void testComputerMakeSuggestion() { //Tests the compter's ability to make reasonable suggestions
 
 		//The 'makeSuggestion' function returns an arrayList of 3 cards, in the order of weapon, person, then location
-		//It will utilize the arrayLists for seen cards above, as well as the arrayList for the deck to make a (potentially random) decision
+				//It will utilize the arrayLists for seen cards above, as well as the arrayList for the deck to make a (potentially random) decision
 
 
-		ArrayList<Card> testCardList = new ArrayList<Card>();
-		ArrayList<Card> testCardListEmpty = new ArrayList<Card>();
-		ComputerPlayer testPlayerA = new ComputerPlayer("TestPlayerAlpha", testCardList, "341", "Clear");
-		ArrayList<Player> testPlayerList = new ArrayList<Player>();
-		testPlayerList.add(testPlayerA);
-		
-		
-		
-		ClueGame testGame = new ClueGame(testPlayerList, testCardList);
-		testGame.loadCardList();
+				ArrayList<Card> testCardList = new ArrayList<Card>();
+				ComputerPlayer testPlayerA = new ComputerPlayer("TestPlayerAlpha", testCardList, "341", "Clear");
+				ArrayList<Player> testPlayerList = new ArrayList<Player>();
+				testPlayerList.add(testPlayerA);
 
-		for (int i=0;i<testGame.getFullCardList().size();i++){
-			testCardList.add(testGame.getFullCardList().get(i));
-		}
-		
-		//We will use a smaller deck of cards, for simplicity
-		Card testCardKnife = testCardList.remove(5); //Cards in the deck
-		Card testCardPipe = testCardList.remove(19);;
-		Card testCardMustard = testCardList.remove(1);
-		Card testCardGreen = testCardList.remove(18);
-		
-		Card testCardHall = testCardList.remove(33);
-		Card testCardKitchen = testCardList.remove(15);
+				//We will use a smaller deck of cards, for simplicity
+				Card testCardKnife = new Card("Knife", Card.typeOfCard.WEAPON); //Cards in the deck
+				Card testCardPipe = new Card("Lead Pipe", Card.typeOfCard.WEAPON);
+				Card testCardMustard = new Card("Colonel Mustard", Card.typeOfCard.PERSON);
+				Card testCardGreen = new Card("Mr. Green", Card.typeOfCard.PERSON);
 
-		testCardList.add(testCardKnife); testCardList.add(testCardPipe); testCardList.add(testCardMustard);
-		testCardList.add(testCardGreen); testCardList.add(testCardHall); testCardList.add(testCardKitchen);
-		
+				//may lead to problems, instead of a name Hallway, have to use index?
+				Card testCardHall = new Card("Walkway", Card.typeOfCard.ROOM);
+				Card testCardKitchen = new Card("Kitchen", Card.typeOfCard.ROOM);
 
-	 
-		
-		//Initially, no cards in the deck have been seen, so the computer has to guess.
+				testCardList.add(testCardKnife); testCardList.add(testCardPipe); testCardList.add(testCardMustard);
+				testCardList.add(testCardGreen); testCardList.add(testCardHall); testCardList.add(testCardKitchen);
 
-		int knifeCounts = 0; //Keeps track of the number of occurrence for each card
-		int pipeCounts = 0;
-		int mustardCounts = 0;
-		int greenCounts = 0;
-		int hallCounts = 0;
-		
-		
+				ClueGame testGame = new ClueGame(testPlayerList, testCardList);
 
-		ComputerPlayer testComputer = new ComputerPlayer("TesterComp",testCardList , "315", "Invisible");
-		testComputer.connectToGame(testGame);
-		board.connectToGame(testGame);
-		
-		Boolean noProblems = true; //Will switch to false if the suggestion is not reasonable
+				//Initially, no cards in the deck have been seen, so the computer has to guess.
 
-		for(int i = 0; i < 50; i++) { //Makes 50 suggestions, tallies the results of which cards were drawn
-			ArrayList<Card> computerGuess = testGame.computerSuggestion(testComputer);
+				int knifeCounts = 0; //Keeps track of the number of occurrence for each card
+				int pipeCounts = 0;
+				int mustardCounts = 0;
+				int greenCounts = 0;
+				int hallCounts = 0;
 
-			if(computerGuess.get(0)==testCardKnife){
-				knifeCounts++;
-	
-			} else if (computerGuess.get(0)==testCardPipe){
-				pipeCounts++;
+				
+				ArrayList<Card> blank = new ArrayList<Card>();
+				ComputerPlayer testComputer = new ComputerPlayer("TesterComp", blank, "315", "Invisible");
+				testComputer.connectToGame(testGame);
+				
+				
+				Boolean noProblems = true; //Will switch to false if the suggestion is not reasonable
 
-			} else {
-				noProblems=false;
+				for(int i = 0; i < 50; i++) { //Makes 50 suggestions, tallies the results of which cards were drawn
+					ArrayList<Card> computerGuess = testGame.computerSuggestion(testComputer);
 
-			}
-			if(computerGuess.get(1)==testCardMustard){
-				mustardCounts++;
+					if(computerGuess.get(0)==testCardKnife){
+						knifeCounts++;
 
-			} else if (computerGuess.get(1)==testCardGreen){
-				greenCounts++;
+					} else if (computerGuess.get(0)==testCardPipe){
+						pipeCounts++;
 
-			} else {
-				noProblems=false;
+					} else {
+						noProblems=false;
 
-			}
-			if(computerGuess.get(2).equals(testCardHall)){
-				hallCounts++;
-			} else {
-				noProblems=false;
+					}
+					if(computerGuess.get(1)==testCardMustard){
+						mustardCounts++;
 
-			}
-		}
+					} else if (computerGuess.get(1)==testCardGreen){
+						greenCounts++;
 
-		assertTrue(knifeCounts > 0);//These should be occurring at least once, or there is a problem with random selection
-		assertTrue(pipeCounts > 0);
-		assertTrue(mustardCounts > 0);
-		assertTrue(greenCounts > 0);
-		assertTrue(hallCounts == 50); //We assume that the computer is in the hall, so only the hall can be returned for the location card
+					} else {
+						noProblems=false;
 
-		assertTrue(noProblems == true); //Any random cards returned?
+					}
+					
+					if(computerGuess.get(2).getName().equals(testCardHall.getName())){
+						hallCounts++;
+					} else {
+						noProblems=false;
+
+					}
+				}
+
+				assertTrue(knifeCounts > 0);//These should be occurring at least once, or there is a problem with random selection
+				assertTrue(pipeCounts > 0);
+				assertTrue(mustardCounts > 0);
+				assertTrue(greenCounts > 0);
+				assertTrue(hallCounts == 50); //We assume that the computer is in the hall, so only the hall can be returned for the location card
+
+				assertTrue(noProblems == true); //Any random cards returned?
 
 
-		//Now we test if the computer will make the only possible suggestion if all but one card is possible for the weapon, person, or room
+				//Now we test if the computer will make the only possible suggestion if all but one card is possible for the weapon, person, or room
 
-		testGame.addToSeenCards(testCardKnife);
-		testGame.addToSeenCards(testCardMustard);
-		testGame.addToSeenCards(testCardHall); //Now only the pipe, green, and kitchen cards are available.
+				testGame.addToSeenCards(testCardKnife);
+				testGame.addToSeenCards(testCardMustard);
+				testGame.addToSeenCards(testCardHall); //Now only the pipe, green, and kitchen cards are available.
 
-		//We will still assume that the computer is in the Hall, however
+				//We will still assume that the computer is in the Hall, however
 
-		assertTrue(testGame.computerSuggestion(testComputer).get(0) == testCardPipe); //The only remaining weapon card is the pipe
-		assertTrue(testGame.computerSuggestion(testComputer).get(1) == testCardGreen); //Green is the only remaining person
-		assertTrue(testGame.computerSuggestion(testComputer).get(2).equals(testCardHall));  //The computer, however, is still in the hall.
+				assertTrue(testGame.computerSuggestion(testComputer).get(0) == testCardPipe); //The only remaining weapon card is the pipe
+				assertTrue(testGame.computerSuggestion(testComputer).get(1) == testCardGreen); //Green is the only remaining person
+				assertTrue(testGame.computerSuggestion(testComputer).get(2).getName().equals(testCardHall.getName()));  //The computer, however, is still in the hall.
 	}
 	
 }

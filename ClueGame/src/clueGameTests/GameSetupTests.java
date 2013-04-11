@@ -64,7 +64,7 @@ public class GameSetupTests {
 	@Test
 	public void TestCardLoading() throws FileNotFoundException { //Test the loading of cards
 		ClueGame testGame = new ClueGame();
-		assertEquals(testGame.getFullCardList().size(), 21); //Test that the game has the correct number of cards
+		assertEquals(testGame.getFullCardList().size(), 22); //Test that the game has the correct number of cards
 
 		int weaponCardCount = 0;
 		int personCardCount = 0;
@@ -82,7 +82,7 @@ public class GameSetupTests {
 
 		assertEquals(weaponCardCount, 6); //Test the deck has the appropriate number of cards of each type
 		assertEquals(personCardCount, 6);
-		assertEquals(roomCardCount, 9);
+		assertEquals(roomCardCount, 10);
 		Boolean weaponCheck = false;
 		Boolean personCheck = false;
 		Boolean roomCheck = false;

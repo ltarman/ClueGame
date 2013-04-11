@@ -309,24 +309,34 @@ public class GameActionTests {
 
 
 		ArrayList<Card> testCardList = new ArrayList<Card>();
+		ArrayList<Card> testCardListEmpty = new ArrayList<Card>();
 		ComputerPlayer testPlayerA = new ComputerPlayer("TestPlayerAlpha", testCardList, "341", "Clear");
 		ArrayList<Player> testPlayerList = new ArrayList<Player>();
 		testPlayerList.add(testPlayerA);
 		
+		
+		
+		ClueGame testGame = new ClueGame(testPlayerList, testCardList);
+		testGame.loadCardList();
+
+		for (int i=0;i<testGame.getFullCardList().size();i++){
+			testCardList.add(testGame.getFullCardList().get(i));
+		}
+		
 		//We will use a smaller deck of cards, for simplicity
-		Card testCardKnife = new Card("Knife", Card.typeOfCard.WEAPON); //Cards in the deck
-		Card testCardPipe = new Card("Lead Pipe", Card.typeOfCard.WEAPON);
-		Card testCardMustard = new Card("Colonel Mustard", Card.typeOfCard.PERSON);
-		Card testCardGreen = new Card("Mr. Green", Card.typeOfCard.PERSON);
+		Card testCardKnife = testCardList.remove(5); //Cards in the deck
+		Card testCardPipe = testCardList.remove(19);;
+		Card testCardMustard = testCardList.remove(1);
+		Card testCardGreen = testCardList.remove(18);
 		
-		//may lead to problems, instead of a name Hallway, have to use index?
-		Card testCardHall = new Card("315", Card.typeOfCard.ROOM);
-		Card testCardKitchen = new Card("Kitchen", Card.typeOfCard.ROOM);
-		
+		Card testCardHall = testCardList.remove(33);
+		Card testCardKitchen = testCardList.remove(15);
+
 		testCardList.add(testCardKnife); testCardList.add(testCardPipe); testCardList.add(testCardMustard);
 		testCardList.add(testCardGreen); testCardList.add(testCardHall); testCardList.add(testCardKitchen);
 		
-		ClueGame testGame = new ClueGame(testPlayerList, testCardList);
+
+	 
 		
 		//Initially, no cards in the deck have been seen, so the computer has to guess.
 
@@ -335,8 +345,12 @@ public class GameActionTests {
 		int mustardCounts = 0;
 		int greenCounts = 0;
 		int hallCounts = 0;
+		
+		
 
-		ComputerPlayer testComputer = new ComputerPlayer("TesterComp", null, "315", "Invisible");
+		ComputerPlayer testComputer = new ComputerPlayer("TesterComp",testCardList , "315", "Invisible");
+		testComputer.connectToGame(testGame);
+		board.connectToGame(testGame);
 		
 		Boolean noProblems = true; //Will switch to false if the suggestion is not reasonable
 

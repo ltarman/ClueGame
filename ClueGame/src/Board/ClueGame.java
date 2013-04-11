@@ -38,7 +38,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> seenPeople;
 	private ArrayList<Card> seenRooms;
 	
-	public Board board;
+	public Board board;;
 	private int currentPlayer;
 	private int randomRollValue;
 	private Boolean playersTurn;
@@ -79,10 +79,16 @@ public class ClueGame extends JFrame{
 	public ClueGame(ArrayList<Player> playerListIn, ArrayList<Card> cardListIn) { //Used for testing
 		playerList = playerListIn;
 		clueGameDeck = cardListIn;
+		clueGameFullDeck = new ArrayList<Card>();
 		seenWeapons = new ArrayList<Card>();
 		seenPeople = new ArrayList<Card>();
 		seenRooms = new ArrayList<Card>();
 		solution = new ArrayList<Card>();
+		board = new Board();
+		board.loadConfigFiles("legend.txt","board.csv");
+		//loadCardList();
+		//loadPlayerList();
+		//dealCards();
 	}
 	
 	//used to draw the board for testing
@@ -279,7 +285,7 @@ public class ClueGame extends JFrame{
 	}
 	
 	//will ultimately load all of the cards into the deck
-	private void loadCardList(){
+	public void loadCardList(){
 		//setting of the initial variables
 		String line = null; 
 		//passing the values into the readfile function
@@ -386,6 +392,7 @@ public class ClueGame extends JFrame{
 				} else { //Otherwise, add a computer player
 					playerList.add(new ComputerPlayer(playerNames.get(iteration), initialPlayerLocations.get(iteration), playerColors.get(iteration)));
 				}
+				
 				playerList.get(iteration).connectToGame(this);
 				iteration++;
 			}
@@ -523,6 +530,7 @@ public class ClueGame extends JFrame{
 	}
 
 	public Board getBoard() {
+		//board.connectToGame(this);
 		return board;
 	}
 	
@@ -535,6 +543,10 @@ public class ClueGame extends JFrame{
 		draw.setVisible(true);
 		draw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 
+	}
+
+	public ArrayList<Card> getClueGameFullDeck() {
+		return clueGameFullDeck;
 	}
 	
 	

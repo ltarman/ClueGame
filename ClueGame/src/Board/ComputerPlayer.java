@@ -57,10 +57,11 @@ public class ComputerPlayer extends Player{
 	public ArrayList<Card> makeSuggestion() {
 		
 		guess = connectGame.computerSuggestion(this);
-		//add the three cards to the seen card lists
-		for(Card i:guess){connectGame.addToSeenCards(i);}
+
+		for(Card i:guess){}
 		//test for possible accusation
 		result = connectGame.testSuggestion(this, guess.get(0), guess.get(1), guess.get(2));
+		connectGame.addToSeenCards(result);
 		if(result==null){willAccuse = true;}
 		else if(result!=null){
 			showSuggestion = true;

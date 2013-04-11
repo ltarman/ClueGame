@@ -16,58 +16,72 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 
-public class PlayerSuggestionDialog extends JFrame{
+public class PlayerAccuseDialog extends JFrame{
 	
-	public JComboBox personList, weaponList; //The lists of people, weapons
-	public JTextField currentRoom;
-	private Board connectedBoard;
+	public JComboBox personList, weaponList, roomList; //The lists of people, weapons
+	//public JTextField currentRoom;
+	private ClueGame connectedGame;
 	private String personName;
 	private String weaponName;
+	private String roomName;
 	
 	private notesDialog dialog;
 
-	public PlayerSuggestionDialog(Card cardIn, Board boardIn) { 
+	public PlayerAccuseDialog(ClueGame gameIn) { 
 		
-		dialog = new notesDialog(cardIn, boardIn);
-
+		dialog = new notesDialog(gameIn);
+		//dialog.setVisible(true);
 		
 	}
 
 	public class notesDialog extends JDialog{ //Necessary to have the panel be a pop-up
-		public notesDialog(Card cardIn, Board boardIn) {
-
-			connectedBoard = boardIn;
-			createLayout(cardIn);
+		public notesDialog(ClueGame gameIn) {
+			//setTitle("Suggestion Box");
+			//setSize(250, 400);
+			connectedGame = gameIn;
+			createLayout();
 		}
 	}
 	
-	private void createLayout(Card cardIn){
-		setTitle("Suggestion Box");
+	private void createLayout(){
+		setTitle("Accusation!");
 		setSize(250, 400);
 		ComboListener listener = new ComboListener();
 		personList = createPersonCombo();
 		weaponList = createWeaponCombo();
+		roomList = createRoomCombo();
 		personList.addActionListener(listener);
 		weaponList.addActionListener(listener);
 		
-		currentRoom = createRoomBox(cardIn.getName());
 		personName = personList.getSelectedItem().toString();
 		weaponName = weaponList.getSelectedItem().toString();
-		final Card locationCard = cardIn;
+		roomName = roomList.getSelectedItem().toString();
+		//final Card locationCard = cardIn;
 		
 		
-		JButton acceptButton = new JButton("Make This Guess");
+		JButton acceptButton = new JButton("Make This Accusation");
 		acceptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
 
 				personName = personList.getSelectedItem().toString();
 				weaponName = weaponList.getSelectedItem().toString();
-
-				connectedBoard.connectedGame.getPlayerList().get(0).humanSuggestion(personName, weaponName, locationCard);
-
-				//System.out.println("GUESS");
-				dispose();
+				roomName = roomList.getSelectedItem().toString();
+				//Card newPersonCard = new Card(personName, Card.typeOfCard.PERSON);
+				//Card newWeaponCard = new Card(weaponName, Card.typeOfCard.WEAPON);
+				
+				
+				//System.out.println("Accuse choices are: " + personName +" " + weaponName + " " + roomName);
+				connectedGame.getPlayerList().get(0);
+				connectedGame.getPlayerList().get(0).humanAccusation(personName, weaponName, roomName);
+				
+				//System.out.println(newPersonCard.getName() + " IFGI " + newWeaponCard.getName() + " IFGI " + locationCard.getName());
+				//System.out.println(connectedBoard.connectedGame.testSuggestion(connectedBoard.connectedGame.getPlayerList().get(0),
+				//		locationCard, newPersonCard, newWeaponCard).getName());
+				
+				//System.out.println("ACCUSE");
+				//fullPanel.dispose();
+				setVisible(false);
 				
 			}
 		});
@@ -76,8 +90,8 @@ public class PlayerSuggestionDialog extends JFrame{
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("You MUST make a guess.");
-				dialog.dispose();
+				System.out.println("Guess later, then.");
+				setVisible(false);
 			}
 
 		});
@@ -88,7 +102,7 @@ public class PlayerSuggestionDialog extends JFrame{
 		add(fullPanel, BorderLayout.CENTER);
 		
 		
-		fullPanel.add(currentRoom);
+		fullPanel.add(roomList);
 		fullPanel.add(personList);
 		fullPanel.add(weaponList);
 		fullPanel.add(acceptButton);
@@ -130,6 +144,25 @@ public class PlayerSuggestionDialog extends JFrame{
 		combo.addItem("Wrench");
 		combo.addItem("Rope");
 		combo.setBorder(new TitledBorder (new EtchedBorder(), "Guess a weapon:"));
+		return combo;
+	}
+	
+	private JComboBox createRoomCombo()
+	{
+		JComboBox combo = new JComboBox();
+		combo.addItem("Study");
+		combo.addItem("Kitchen");
+		combo.addItem("Limbo");
+		combo.addItem("Lounge");
+		combo.addItem("Dining Room");
+		combo.addItem("Kitchen");
+		combo.addItem("Ballroom");
+		combo.addItem("Conservatory");
+		combo.addItem( "Billiard Room");
+		combo.addItem("Library");
+		combo.addItem("Study");
+		combo.addItem("Hall");
+		combo.setBorder(new TitledBorder (new EtchedBorder(), "Guess a room:"));
 		return combo;
 	}
 

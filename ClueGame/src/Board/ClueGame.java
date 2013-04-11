@@ -38,7 +38,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> seenPeople;
 	private ArrayList<Card> seenRooms;
 	
-	public Board board;;
+	public Board board;
 	private int currentPlayer;
 	private int randomRollValue;
 	private Boolean playersTurn;
@@ -590,6 +590,18 @@ public class ClueGame extends JFrame{
 		
 		draw.setVisible(true);
 		draw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		System.out.println("Kitchen:" + draw.getBoard().calcIndex(4, 2));
+		System.out.println("Bathroom:" + draw.getBoard().calcIndex(2, 8));
+		System.out.println("Dining Room:" + draw.getBoard().calcIndex(4, 14));
+		System.out.println("Study:" + draw.getBoard().calcIndex(2, 19));
+		System.out.println("Ballroom:" + draw.getBoard().calcIndex(12, 6));
+		System.out.println("Living Room:" + draw.getBoard().calcIndex(20, 3));
+		System.out.println("Lobby:" + draw.getBoard().calcIndex(18, 13));
+		System.out.println("Bedroom:" + draw.getBoard().calcIndex(14, 22));
+		System.out.println("Library:" + draw.getBoard().calcIndex(11, 21));
+		
+		
 
 	}
 
